@@ -22,7 +22,7 @@ public class dragAndDrop : MonoBehaviour
         if(canDrag && !drag ){
             canDrag = false;
             drag = true;
-            gridControl.setPickuPObject(this.gameObject);
+            gridControl.setPickUpObject(this.gameObject);
         }else if( !canDrag && drag){
             canDrag = true;
             drag = false;

@@ -8,6 +8,16 @@ public class pipe : MonoBehaviour
 
     private gridManager gridControl;
 
+     enum DIRECTIONS{
+        left,
+        right,
+        up,
+        down
+    };
+
+    private DIRECTIONS[] allowedDirections = {DIRECTIONS.left, DIRECTIONS.right};
+   
+
 
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
@@ -16,7 +26,9 @@ public class pipe : MonoBehaviour
 
     void Start()
     {
-        
+       foreach(var item in allowedDirections){
+            Debug.Log(item);
+       }
     }
 
     // Update is called once per frame
