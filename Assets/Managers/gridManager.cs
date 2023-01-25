@@ -78,4 +78,9 @@ public class gridManager : MonoBehaviour
         }
         pieceSelected = null;
     }
+
+    public GameObject returnBoardObject(Vector2 _input){
+        
+        return board[(int)_input.x,(int)_input.y];
+    }
 }
