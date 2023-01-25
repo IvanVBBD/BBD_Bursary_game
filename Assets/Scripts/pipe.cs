@@ -7,16 +7,14 @@ public class pipe : MonoBehaviour
     // Start is called before the first frame update
 
     private gridManager gridControl;
+    [SerializeField] private Vector2[] allowedDirections;
 
-     enum DIRECTIONS{
-        left,
-        right,
-        up,
-        down
+    enum DIRECTION {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
     };
-
-    private DIRECTIONS[] allowedDirections = {DIRECTIONS.left, DIRECTIONS.right};
-   
 
 
     void Awake(){
@@ -26,15 +24,17 @@ public class pipe : MonoBehaviour
 
     void Start()
     {
-       foreach(var item in allowedDirections){
-            Debug.Log(item);
-       }
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public Vector2[] returnPipeDirections(){
+        return allowedDirections;
     }
 
 }
