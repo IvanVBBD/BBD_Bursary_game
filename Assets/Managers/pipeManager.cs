@@ -28,7 +28,7 @@ public class pipeManager : MonoBehaviour
 
     void beginTrans(){
         succCon = false;
-        Vector2 foundStart = new Vector2(2,4);
+        Vector2 foundStart = gridControl.returnStartPosition();
         Debug.Log("Starting Trans");
         tranverse(Vector2.right,foundStart);
         if(succCon == true){
@@ -72,6 +72,7 @@ public class pipeManager : MonoBehaviour
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     Debug.Log("STAGE 2");
                     Debug.Log($"chosen point {element}");
+                    currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
                     tranverse(element,currentPos);
                     return;
                 }
