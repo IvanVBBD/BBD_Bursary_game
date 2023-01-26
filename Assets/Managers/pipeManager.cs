@@ -89,27 +89,14 @@ public class pipeManager : MonoBehaviour
     //Spawn pipe section
     public void spawnPipe(string type){
     switch(type){
-        case "rightPipe":
+        case "straightPipe":
         GameObject currentPipe = Instantiate(Resources.Load<GameObject>("rightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
         //spawn right pipe
         break;
-        case "leftPipe":
+        case "bendyPipe":
         //spawn left pipe
-        GameObject temp = Instantiate(Resources.Load<GameObject>("leftPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        GameObject temp = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
         break;
-        case "upRightPipe":
-        Instantiate(Resources.Load<GameObject>("upRightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "upLeftPipe":
-        Instantiate(Resources.Load<GameObject>("upLeftPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "downLeftPipe":
-        Instantiate(Resources.Load<GameObject>("downLeftPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "downRightPipe":
-        Instantiate(Resources.Load<GameObject>("downRightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-
         default:
         //shouldnt ever get here tbh
         break;

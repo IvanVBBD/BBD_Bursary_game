@@ -48,6 +48,10 @@ public class gridManager : MonoBehaviour
         pieceSelected = _object;
     }
 
+    public GameObject returnCurrentPickUp(){
+        return pieceSelected;
+    }
+
 
     //Used to resetGrid to null on start of game, needed to get around GameObject[,] not init as null but empty object
     void resetGrid(){
