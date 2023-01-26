@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System;
 
 public class gridManager : MonoBehaviour
 {
@@ -14,6 +12,9 @@ public class gridManager : MonoBehaviour
     [SerializeField] private GameObject pieceSelected;
 
     [SerializeField] private GameObject[,] board = new GameObject[10,10];
+
+    [SerializeField] private Vector2 startPos,endPos;
+
   
 
     void Start(){
@@ -32,13 +33,23 @@ public class gridManager : MonoBehaviour
            
         }
 
+        //hook in here to set-up end/start point
+        endPos = new Vector2((int)Random.Range(0f,width - 1),(int)Random.Range(0f,height - 1));
+        startPos = new Vector2((int)Random.Range(0f,width - 1),(int)Random.Range(0f,height - 1));
+        board[(int)startPos.x,(int)startPos.y] = Instantiate(Resources.Load<GameObject>("start"),new Vector3 ((int)startPos.x, (int)startPos.y, -1f),Quaternion.identity);
+        board[(int)endPos.x,(int)endPos.y] = Instantiate(Resources.Load<GameObject>("end"),new Vector3 ((int)endPos.x, (int)endPos.y, -1f),Quaternion.identity);
         Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
+
     }
 
 
     //Public interface for gridManager for selecting objects with dragAndDrop
     public void setPickUpObject(GameObject _object){
         pieceSelected = _object;
+    }
+
+    public GameObject returnCurrentPickUp(){
+        return pieceSelected;
     }
 
 
@@ -82,5 +93,9 @@ public class gridManager : MonoBehaviour
     public GameObject returnBoardObject(Vector2 _input){
         
         return board[(int)_input.x,(int)_input.y];
+    }
+
+    public Vector2 returnStartPosition(){
+        return startPos;
     }
 }

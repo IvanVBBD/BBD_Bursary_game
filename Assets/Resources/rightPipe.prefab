@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 833705072352170051}
   m_Layer: 0
   m_Name: rightPipe
-  m_TagString: Untagged
+  m_TagString: pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedDirections:
   - {x: 1, y: 0}
+  - {x: -1, y: 0}
 --- !u!114 &833705072352170051
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class pipeManager : MonoBehaviour
     Vector2 startPos = new Vector2(0,0); // need to plug into the start point;
 
     private gridManager gridControl; 
+    private bool succCon = false;
 
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
@@ -20,39 +21,88 @@ public class pipeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Q)){
+            beginTrans();
+        }
     }
 
     void beginTrans(){
-        Vector2 foundStartChange = new Vector2(0,0);
-        bool result = tranverse(foundStartChange,startPos);
-        if(result == true){
+        succCon = false;
+        Vector2 foundStart = gridControl.returnStartPosition();
+        Debug.Log("Starting Trans");
+        tranverse(Vector2.right,foundStart);
+        if(succCon == true){
             Debug.Log("YAAAAS U WIN");
+        }else{
+            Debug.Log("Failed End");
         }
     }
 
-    bool tranverse(Vector2 change, Vector2 currentPos){
+    void tranverse(Vector2 change, Vector2 currentPos){
+        Vector2 oldPos = currentPos;
+        Debug.Log($"old Postion: {oldPos}");
         currentPos = new Vector2((int)(currentPos.x + change.x),(int)(currentPos.y + change.y));
-        GameObject nextPiece = gridControl.returnBoardObject(currentPos);
-        if(nextPiece == null){
-            return false;
-        }else if (nextPiece.tag == "end"){
-            return true;
-        }else if (nextPiece.tag == "pipe"){
+        Debug.Log($"New Postion: {currentPos}");
+        GameObject currentPiece = gridControl.returnBoardObject(currentPos);
+        if(currentPiece == null){
+            Debug.Log("YUUUP its null");
+            return;
+        }else if (currentPiece.gameObject.tag == "end"){
+            succCon = true;
+            return;
+        }else if (currentPiece.gameObject.tag == "pipe"){
             //get stuff off object and call transverse again
-            Vector2[] nextPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
-            bool tempResult = false;
-            foreach(Vector2 element in nextPoints){
-                bool result = tranverse(element,currentPos);
-                if(result){
-                    tempResult = true;
+            Debug.Log("we in here!");
+            Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
+
+
+            ///Validating pipe connection section of algorithim
+            Vector2 connectingPostion = Vector2.zero; // init
+            foreach(Vector2 pointSet in connectingPoints){
+                if (new Vector2((int)(currentPos.x + pointSet.x),(int)(currentPos.y + pointSet.y)) == oldPos){
+
+                    connectingPostion = pointSet;// new Vector2((int)(currentPos.x + pointSet.x),(int)(currentPos.y + pointSet.y));
                 }
             }
-            return tempResult;
+
+            //This section deals with transerving out all possible ends of the pipe that is not the entry side
+            foreach(Vector2 element in connectingPoints){
+                Debug.Log("STAGE 1");
+                Debug.Log($"checking point {element}");
+                if(element != connectingPostion && connectingPostion != Vector2.zero){
+                    Debug.Log("STAGE 2");
+                    Debug.Log($"chosen point {element}");
+                    currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                    tranverse(element,currentPos);
+                    return;
+                }
+               
+            }
+            return;
         }
 
         //SHould never reach here
-        return false;
+        return;
         
     }
+
+    //Spawn pipe section
+    public void spawnPipe(string type){
+    switch(type){
+        case "straightPipe":
+        GameObject currentPipe = Instantiate(Resources.Load<GameObject>("rightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        //spawn right pipe
+        break;
+        case "bendyPipe":
+        //spawn left pipe
+        GameObject temp = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        default:
+        //shouldnt ever get here tbh
+        break;
+    }
 }
+}
+
+
+
