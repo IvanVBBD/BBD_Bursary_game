@@ -13,7 +13,8 @@ public class gridManager : MonoBehaviour
 
     [SerializeField] private GameObject[,] board = new GameObject[10,10];
 
-    [SerializeField] private Vector2 startPos;
+    [SerializeField] private Vector2 startPos,endPos;
+
   
 
     void Start(){
@@ -31,9 +32,14 @@ public class gridManager : MonoBehaviour
             }
            
         }
+
+        //hook in here to set-up end/start point
+        endPos = new Vector2((int)Random.Range(0f,width - 1),(int)Random.Range(0f,height - 1));
         startPos = new Vector2((int)Random.Range(0f,width - 1),(int)Random.Range(0f,height - 1));
         board[(int)startPos.x,(int)startPos.y] = Instantiate(Resources.Load<GameObject>("start"),new Vector3 ((int)startPos.x, (int)startPos.y, -1f),Quaternion.identity);
+        board[(int)endPos.x,(int)endPos.y] = Instantiate(Resources.Load<GameObject>("end"),new Vector3 ((int)endPos.x, (int)endPos.y, -1f),Quaternion.identity);
         Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
+
     }
 
 
