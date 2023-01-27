@@ -80,6 +80,7 @@ public class gridManager : MonoBehaviour
                 pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                 pieceDetection(pieceSelected);
                 board[gridX,gridY] = pieceSelected;
+                Debug.Log($"Object was added to : {gridX},{gridY}");
             }else if(board[gridX,gridY] != null){
                 Destroy(pieceSelected); //might need to inc piece property later
             }
