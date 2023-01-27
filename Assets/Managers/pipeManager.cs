@@ -8,10 +8,12 @@ public class pipeManager : MonoBehaviour
     Vector2 startPos = new Vector2(0,0); // need to plug into the start point;
 
     private gridManager gridControl; 
+    private waterManager waterControl;
     private bool succCon = false;
 
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
+        waterControl = GameObject.FindGameObjectWithTag("waterManager").GetComponent<waterManager>();
     }
     void Start()
     {
@@ -38,7 +40,7 @@ public class pipeManager : MonoBehaviour
         }
     }
 
-    void tranverse(Vector2 change, Vector2 currentPos){
+     void tranverse(Vector2 change, Vector2 currentPos){
         Vector2 oldPos = currentPos;
         Debug.Log($"old Postion: {oldPos}");
         currentPos = new Vector2((int)(currentPos.x + change.x),(int)(currentPos.y + change.y));
@@ -53,7 +55,6 @@ public class pipeManager : MonoBehaviour
             return;
         }else if (currentPiece.gameObject.tag == "pipe"){
             //get stuff off object and call transverse again
-            Debug.Log("we in here!");
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
 
 
@@ -68,13 +69,20 @@ public class pipeManager : MonoBehaviour
 
             //This section deals with transerving out all possible ends of the pipe that is not the entry side
             foreach(Vector2 element in connectingPoints){
-                Debug.Log("STAGE 1");
-                Debug.Log($"checking point {element}");
+                //Debug.Log("STAGE 1");
+                //Debug.Log($"checking point {element}");
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     Debug.Log("STAGE 2");
                     Debug.Log($"chosen point {element}");
-                    currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
-                    tranverse(element,currentPos);
+                    if(waterControl.canMoveDirection(element)){
+                        currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                        tranverse(element,currentPos);
+                    }else{
+                        Debug.Log("Failed state check for direction");
+                        currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                        return;
+                    }
+                    
                     return;
                 }
                
