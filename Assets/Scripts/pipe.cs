@@ -9,6 +9,7 @@ public class pipe : MonoBehaviour
 
     private gridManager gridControl;
     [SerializeField] private Vector2[] allowedDirections;
+    [SerializeField] private string pipeState;
 
 
 
@@ -35,6 +36,10 @@ public class pipe : MonoBehaviour
             }
             gameObject.transform.Rotate(0,0,-90);
         }
+    }
+
+    public string returnPipeEffect(){
+        return pipeState;
     }
 
 
