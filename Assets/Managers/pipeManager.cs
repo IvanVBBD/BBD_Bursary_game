@@ -48,6 +48,7 @@ public class pipeManager : MonoBehaviour
             Debug.Log("YUUUP its null");
             return;
         }else if (currentPiece.gameObject.tag == "end"){
+            gridControl.returnBoardObject(oldPos).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             succCon = true;
             return;
         }else if (currentPiece.gameObject.tag == "pipe"){
@@ -90,7 +91,7 @@ public class pipeManager : MonoBehaviour
     public void spawnPipe(string type){
     switch(type){
         case "straightPipe":
-        GameObject currentPipe = Instantiate(Resources.Load<GameObject>("rightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        GameObject currentPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
         //spawn right pipe
         break;
         case "bendyPipe":
