@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using waterSpace;
 
 public class pipe : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class pipe : MonoBehaviour
 
     void Start()
     {
-       
+
     }
 
     void rotate(){
@@ -27,7 +27,10 @@ public class pipe : MonoBehaviour
             Debug.Log("=========================");
             for(int index = 0; index < allowedDirections.Length; index++){
                 Debug.Log($"old direction: {allowedDirections[index]} ");
-                allowedDirections[index] = rotate(allowedDirections[index], -1f * Mathf.PI/ 2);
+                Vector2 temp = rotate(allowedDirections[index], -1f * Mathf.PI/ 2);
+                temp.x = Mathf.RoundToInt(temp.x);
+                temp.y = Mathf.RoundToInt(temp.y);
+                allowedDirections[index] = temp;
                 Debug.Log($"new direction: {allowedDirections[index]} ");
             }
             gameObject.transform.Rotate(0,0,-90);
