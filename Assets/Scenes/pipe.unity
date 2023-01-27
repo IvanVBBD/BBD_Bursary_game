@@ -189,7 +189,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266999049
 GameObject:
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 266999051}
   - component: {fileID: 266999050}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas_Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ RectTransform:
   - {fileID: 924596135}
   - {fileID: 2087459308}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -406,8 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821c5617a236fc4408e79f1e20620b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  numTiles_y: 3
   tile: {fileID: 5941883187420139287, guid: 0b365a11394695e47b60c932e0a81651, type: 3}
   pieceSelected: {fileID: 0}
   startPos: {x: 0, y: 0}
@@ -751,7 +750,7 @@ GameObject:
   - component: {fileID: 1560203879}
   - component: {fileID: 1560203878}
   m_Layer: 0
-  m_Name: waterManager
+  m_Name: WaterManager
   m_TagString: waterManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,6 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec494df9fbfee184293a92b1591c4737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WaterDirtState: 0
 --- !u!4 &1560203879
 Transform:
   m_ObjectHideFlags: 0
@@ -782,7 +782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730430521
 GameObject:
