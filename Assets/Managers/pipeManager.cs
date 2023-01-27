@@ -56,6 +56,7 @@ public class pipeManager : MonoBehaviour
         }else if (currentPiece.gameObject.tag == "pipe"){
             //get stuff off object and call transverse again
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
+            waterControl.alterWaterPhaseState(currentPiece.GetComponent<pipe>().returnPipeEffect());
 
 
             ///Validating pipe connection section of algorithim
