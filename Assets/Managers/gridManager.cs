@@ -91,6 +91,7 @@ index   numTiles_y  diff    orthographicSize
 
     //Public interface for gridManager for selecting objects with dragAndDrop
     public void setPickUpObject(GameObject _object){
+        pieceDetection(_object);
         pieceSelected = _object;
     }
 

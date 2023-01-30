@@ -29,9 +29,6 @@ public class waterManager : MonoBehaviour
         
     }
 
-    public waterSpace.waterStates returnWaterPhaseState(){
-        return waterPhaseState;
-    }
 
     public bool canMoveDirection(Vector2 _direction){
         Debug.Log($"Direction Recieved: {_direction}");
@@ -40,8 +37,6 @@ public class waterManager : MonoBehaviour
         switch(waterPhaseState){
             case waterSpace.waterStates.STEAM:
             if(_direction == Vector2.right || _direction == Vector2.left || _direction == Vector2.up){
-                
-                Debug.Log("STEAM TRUE");
                 return true;
             }else{
                 return false;
@@ -82,17 +77,24 @@ public class waterManager : MonoBehaviour
                     changeWaterPhaseState(waterSpace.waterStates.STEAM);
                 }
                 break;
+                case "FILTER":
+                    filter();
+                break;
+                case "CONTAMINATOR":
+                    dirty();
+                break;
             }
             Debug.Log($"water state is now: {waterPhaseState}");
     }
 
-    public float returnWaterDirtState(){
-        return WaterDirtState;
-    }
+    private void filter() => WaterDirtState -= 1;
+    private void dirty() => WaterDirtState += 1;
 
-    public void changeWaterPhaseState(waterSpace.waterStates _state){
-        waterPhaseState = _state;
-    }
+    public float returnWaterContaminateLevel() => WaterDirtState;
+
+     public void changeWaterPhaseState(waterSpace.waterStates _state) => waterPhaseState = _state;
+
+     public waterSpace.waterStates returnWaterPhaseState() => waterPhaseState;
 
     // Update is called once per frame
     void Update()
