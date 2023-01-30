@@ -5,7 +5,7 @@ using UnityEngine;
 public class gridManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private int numTiles_y; //numTiles_x,
+    [SerializeField] private int numTiles_y; //numTiles_x,    
     private int numTiles_x;
     private int maxNumTiles_y = 16;
     private int minNumTiles_y = 8;
@@ -70,8 +70,9 @@ public class gridManager : MonoBehaviour
         //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
         //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
 
-        Camera.main.transform.position = new Vector3((float)0.0f,(float)numTiles_y/2.0f,-10f);
-        Camera.main.orthographicSize = ((float)(numTiles_y-8)*0.5f + 6.0f); //TAKE CARE OF THESE MAGIC NUMBERS :( )
+        Camera.main.transform.position = new Vector3((float)numTiles_x/2 -0.5f,(float)numTiles_y/2 - 0.5f,-10f);
+        //Camera.main.orthographicSize = ((float)(numTiles_y-8)*0.5f + 6.0f); //TAKE CARE OF THESE MAGIC NUMBERS :( )
+        Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 1.5f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )
 
 
 /* CAMERA SIZE LOGIC
