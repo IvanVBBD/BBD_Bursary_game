@@ -11,6 +11,7 @@ public class gridManager : MonoBehaviour
     private int minNumTiles_y = 8;
     private int inventoryWidth = 2;
     private int inventoryPadding = 1;
+    private int inventoryStart, inventoryEnd;
     [SerializeField] private GameObject tile;
 
     [SerializeField] private GameObject pieceSelected;
@@ -33,6 +34,9 @@ public class gridManager : MonoBehaviour
 
         board = new GameObject[numTiles_x, numTiles_y];
         inventory = new GameObject[inventoryWidth, numTiles_y];
+        inventoryStart = numTiles_x + inventoryPadding;
+        inventoryEnd = numTiles_x + inventoryPadding + inventoryWidth;
+
         resetGrid();
         generateGrid();
         resetInventoryGrid();
@@ -137,28 +141,31 @@ public class gridManager : MonoBehaviour
 
     public void snapToGrid(){
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if(mousePosition.x > 0 && (mousePosition.x < numTiles_x || (mousePosition.x > numTiles_x+inventoryPadding && mousePosition.x < numTiles_x+inventoryPadding+inventoryWidth)) 
-            && mousePosition.y > 0 && mousePosition.y < numTiles_y){
-            int gridX = Mathf.RoundToInt(mousePosition.x);
-            int gridY = Mathf.RoundToInt(mousePosition.y);
+        int gridX = Mathf.RoundToInt(mousePosition.x);
+        int gridY = Mathf.RoundToInt(mousePosition.y);
+
+        // Check if mouse pos is within the grid+inventory space
+        if(gridX >= 0 && gridY >= 0 && gridY < numTiles_y){
+            // Check if mouse pos is within only the grid space
             if(gridX < numTiles_x){
                 if(board[gridX,gridY] == null){
                     pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                     pieceDetection(pieceSelected);
                     board[gridX,gridY] = pieceSelected;
-                    Debug.Log($"Object was added to : {gridX},{gridY}");
                 }else if(board[gridX,gridY] != null){
                     Destroy(pieceSelected); //might need to inc piece property later
                 }
-            }else if(inventory[gridX-numTiles_x-inventoryPadding,gridY] == null){
-                pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
-                pieceDetection(pieceSelected);
-                inventory[gridX-numTiles_x-inventoryPadding,gridY] = pieceSelected;
-                Debug.Log($"Object was added to : {gridX},{gridY}");
-            }else if(inventory[gridX-numTiles_x-inventoryPadding, gridY] != null){
-                Destroy(pieceSelected); //might need to inc piece property later
-            }
-           
+            // Check if mouse pos is within only the inventory space
+            }else if(gridX >= inventoryStart && gridX < inventoryEnd){
+                if(inventory[gridX-numTiles_x-inventoryPadding,gridY] == null){
+                    pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
+                    pieceDetection(pieceSelected);
+                    inventory[gridX-numTiles_x-inventoryPadding,gridY] = pieceSelected;
+                    //Debug.Log($"Object was added to : {gridX},{gridY}");
+                }else if(inventory[gridX-numTiles_x-inventoryPadding, gridY] != null){
+                    Destroy(pieceSelected); //might need to inc piece property later
+                }
+            }          
         }else{
             pieceDetection(pieceSelected);
         }
@@ -166,7 +173,6 @@ public class gridManager : MonoBehaviour
     }
 
     public GameObject returnBoardObject(Vector2 _input){
-        
         return board[(int)_input.x,(int)_input.y];
     }
 
