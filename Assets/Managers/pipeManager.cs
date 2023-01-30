@@ -82,7 +82,7 @@ public class pipeManager : MonoBehaviour
                             if(water.waterDirtState <= 0 && cleanDirection == element){
                                 currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
                                 tranverse(element,currentPos,water);
-                            }else if(water.waterPhaseState > 0 && dirtyDirection == element){
+                            }else if(water.waterDirtState > 0 && dirtyDirection == element){
                                 currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
                                 tranverse(element,currentPos,water);
                             }

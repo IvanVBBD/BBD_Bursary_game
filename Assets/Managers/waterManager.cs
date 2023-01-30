@@ -27,12 +27,12 @@ public class waterManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private waterSpace.waterStates waterPhaseState = waterSpace.waterStates.WATER;
-    [SerializeField]private float WaterDirtState = 0f;
+
     private waterSpace.waterObject originalWater;
     
-    void Start()
-    {
-        originalWater.waterDirtState = WaterDirtState;
+
+    void Awake(){
+        originalWater.waterDirtState = 0f;
         originalWater.waterPhaseState = waterSpace.waterStates.WATER;
     }
 
@@ -42,7 +42,7 @@ public class waterManager : MonoBehaviour
     public bool canMoveDirection(Vector2 _direction, waterSpace.waterObject water){
         Debug.Log($"Direction Recieved: {_direction}");
         Debug.Log($"What we need {Vector2.up}");
-        Debug.Log($"Water State: {waterPhaseState}");
+        Debug.Log($"Water State: {water.waterPhaseState}");
         switch(water.waterPhaseState){
             case waterSpace.waterStates.STEAM:
             if(_direction == Vector2.right || _direction == Vector2.left || _direction == Vector2.up){
