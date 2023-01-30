@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821c5617a236fc4408e79f1e20620b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numTiles_y: 3
+  numTiles_y: 10
   tile: {fileID: 5941883187420139287, guid: 0b365a11394695e47b60c932e0a81651, type: 3}
   pieceSelected: {fileID: 0}
   startPos: {x: 0, y: 0}

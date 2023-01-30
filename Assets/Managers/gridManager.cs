@@ -60,6 +60,16 @@ public class gridManager : MonoBehaviour
         startPos = new Vector2((int)Random.Range(0f,numTiles_x - 1),(int)Random.Range(0f,numTiles_y - 1));
         board[(int)startPos.x,(int)startPos.y] = Instantiate(Resources.Load<GameObject>("start"),new Vector3 ((int)startPos.x, (int)startPos.y, -1f),Quaternion.identity);
         board[(int)endPos.x,(int)endPos.y] = Instantiate(Resources.Load<GameObject>("end"),new Vector3 ((int)endPos.x, (int)endPos.y, -1f),Quaternion.identity);
+        float screenSize_x = Screen.width;
+        float screenSize_y = Screen.height;
+
+        //screenSize_x*50% = numTiles_x
+        //
+        float temp_x = screenSize_x/numTiles_x;
+        float temp_y = screenSize_y/numTiles_y;
+        //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
+        //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
+
         Camera.main.transform.position = new Vector3((float)0.0f,(float)numTiles_y/2.0f,-10f);
         Camera.main.orthographicSize = ((float)(numTiles_y-8)*0.5f + 6.0f); //TAKE CARE OF THESE MAGIC NUMBERS :( )
 
