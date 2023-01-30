@@ -51,7 +51,9 @@ public class pipeManager : MonoBehaviour
             return;
         }else if (currentPiece.gameObject.tag == "end"){
             gridControl.returnBoardObject(oldPos).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-            succCon = true;
+            if(waterControl.returnWaterContaminateLevel() == 0f && waterControl.returnWaterPhaseState() == waterSpace.waterStates.WATER){
+                succCon = true;
+            }
             return;
         }else if (currentPiece.gameObject.tag == "pipe"){
             //get stuff off object and call transverse again
@@ -70,27 +72,33 @@ public class pipeManager : MonoBehaviour
 
             //This section deals with transerving out all possible ends of the pipe that is not the entry side
             foreach(Vector2 element in connectingPoints){
-                //Debug.Log("STAGE 1");
-                //Debug.Log($"checking point {element}");
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
-                    Debug.Log("STAGE 2");
                     Debug.Log($"chosen point {element}");
                     if(waterControl.canMoveDirection(element)){
-                        currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
-                        tranverse(element,currentPos);
+                        if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
+                            Vector2[] combinedData = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
+                            Vector2 cleanDirection = combinedData[0];
+                            Vector2 dirtyDirection = combinedData[1];
+                            if(waterControl.returnWaterContaminateLevel() <= 0 && cleanDirection == element){
+                                currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                                tranverse(element,currentPos);
+                            }else if(waterControl.returnWaterContaminateLevel() > 0 && dirtyDirection == element){
+                                currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                                tranverse(element,currentPos);
+                            }
+                        }else{
+                            currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
+                            tranverse(element,currentPos);
+                        }
                     }else{
-                        Debug.Log("Failed state check for direction");
+                        Debug.Log("Failed Water state check for direction");
                         currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
-                        return;
                     }
-                    
-                    return;
                 }
                
             }
             return;
         }
-
         //SHould never reach here
         return;
         

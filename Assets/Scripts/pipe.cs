@@ -9,18 +9,16 @@ public class pipe : MonoBehaviour
 
     private gridManager gridControl;
     [SerializeField] private Vector2[] allowedDirections;
+    [SerializeField] private bool isBalanceSplitter = false;
+
+    [SerializeField]private Vector2 cleanDirection;
+    [SerializeField]private Vector2 dirtyDirection;
     [SerializeField] private string pipeState;
 
 
 
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
-    }
-
-
-    void Start()
-    {
-
     }
 
     void rotate(){
@@ -34,14 +32,20 @@ public class pipe : MonoBehaviour
                 allowedDirections[index] = temp;
                 Debug.Log($"new direction: {allowedDirections[index]} ");
             }
+            if(isBalanceSplitter){
+                Vector2 temp = rotate(cleanDirection,-1f * Mathf.PI/ 2);
+                temp.x = Mathf.RoundToInt(temp.x);
+                temp.y = Mathf.RoundToInt(temp.y);
+                cleanDirection = temp;
+                temp = rotate(dirtyDirection,-1f * Mathf.PI/ 2);
+                temp.x = Mathf.RoundToInt(temp.x);
+                temp.y = Mathf.RoundToInt(temp.y);
+                dirtyDirection = temp;
+            }
+            
             gameObject.transform.Rotate(0,0,-90);
         }
     }
-
-    public string returnPipeEffect(){
-        return pipeState;
-    }
-
 
     public static Vector2 rotate(Vector2 v, float delta) {
     return new Vector2(
@@ -50,15 +54,21 @@ public class pipe : MonoBehaviour
     );
     }
 
-
     // Update is called once per frame
     void Update()
     {
         rotate();
     }
 
-    public Vector2[] returnPipeDirections(){
-        return allowedDirections;
+    public string returnPipeEffect() => pipeState;
+
+    public bool returnIsBalanceSplitter() => isBalanceSplitter;
+ 
+    public Vector2[] returnPipeDirections() => allowedDirections;
+
+    public Vector2[] returnPipeBalanceDirections() {
+        Vector2[] tempReturn = {cleanDirection,dirtyDirection};
+        return tempReturn;
     }
 
 }
