@@ -18,10 +18,8 @@ public class gridManager : MonoBehaviour
 
     private GameObject[,] board; //= new GameObject[10,10];
     private GameObject[,] inventory;
-
+    private int[,] inventoryCount;
     [SerializeField] private Vector2 startPos,endPos;
-
-
 
     void Start(){
         if(numTiles_y < minNumTiles_y){
@@ -34,6 +32,8 @@ public class gridManager : MonoBehaviour
 
         board = new GameObject[numTiles_x, numTiles_y];
         inventory = new GameObject[inventoryWidth, numTiles_y];
+        inventoryCount = new int[inventoryWidth, numTiles_y];
+
         inventoryStart = numTiles_x + inventoryPadding;
         inventoryEnd = numTiles_x + inventoryPadding + inventoryWidth;
 
@@ -41,6 +41,7 @@ public class gridManager : MonoBehaviour
         generateGrid();
         resetInventoryGrid();
         generateInventoryGrid();
+        populateInventoryGrid(); // Will need to send in arguments of which pieces to add
     }
 
     void addStartEndPipes(){
@@ -59,7 +60,7 @@ public class gridManager : MonoBehaviour
         Debug.Log($"SCREEN WIDTH: {screenSize_x}");
         Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
         
-        Camera.main.transform.position = new Vector3((float)numTiles_x/2 -0.5f,(float)numTiles_y/2 - 0.5f,-10f);
+        Camera.main.transform.position = new Vector3((float)(inventoryEnd)/2 -0.5f,(float)numTiles_y/2,-10f);
         Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 1.5f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )
     }
 
@@ -99,9 +100,32 @@ public class gridManager : MonoBehaviour
         }
     }
 
+    //Spawn pipe section NB NB NB This assumes the spawner isn't making a mistake and trying to spawn multiple types of pipes on top of one another
+    public void spawnPipe(string type, int x, int y){
+        int inventory_x = x-inventoryStart;
+
+        switch(type){
+            case "straightPipe":
+                GameObject straightPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (x, y, -1f),Quaternion.identity);
+                inventory[inventory_x, y] = straightPipe;
+                inventoryCount[inventory_x, y]++;
+            break;
+            case "bendyPipe":
+                GameObject bendyPipe = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (x, y, -1f),Quaternion.identity);
+                inventory[inventory_x, y] = bendyPipe;
+                inventoryCount[inventory_x, y]++;
+            break;
+            default:
+                // Shouldn't ever get here tbh
+            break;
+        }
+    }
+
+
+
     //Public interface for gridManager for selecting objects with dragAndDrop
     public void setPickUpObject(GameObject _object){
-        pieceDetection(_object);
+        removePieceFromArray(_object);
         pieceSelected = _object;
     }
 
@@ -112,19 +136,22 @@ public class gridManager : MonoBehaviour
     //Used to resetGrid to null on start of game, needed to get around GameObject[,] not init as null but empty object
     void resetGrid(){
          for(int j = 0 ; j < numTiles_x;j++){
-                for(int k = 0; k < numTiles_y; k++){
-                    board[j,k] = null;
-                }
+            for(int k = 0; k < numTiles_y; k++){
+                board[j,k] = null;
             }
+        }
     }
     void resetInventoryGrid(){
          for(int j = 0 ; j < inventoryWidth; j++){
             for(int k = 0; k < numTiles_y; k++){
                 inventory[j,k] = null;
+                inventoryCount[j,k] = 0;
             }
         }
     }
-    void pieceDetection(GameObject _piece){
+    
+    // NOTE: Renamed from "pieceDetection"
+    void removePieceFromArray(GameObject _piece){
         for (int y = 0; y < numTiles_y; y++){
             for(int x = 0;x < numTiles_x;x++){
                 if (board[x,y] == _piece){
@@ -132,11 +159,38 @@ public class gridManager : MonoBehaviour
                 }
             }
             for(int x = 0; x < inventoryWidth; x++){
-                if(inventory[x,y] == _piece){
-                    inventory[x,y] = null;
+                if(inventory[x,y] != null){
+                    if(inventory[x,y].name == _piece.name){
+                        if(inventoryCount[x,y] > 1){
+                            inventoryCount[x,y]--;
+                        }else if(inventoryCount[x,y] > 0){
+                            inventory[x,y] = null;
+                            inventoryCount[x,y]--;
+                        }
+                    }
                 }
+
             }
         }
+    }
+
+
+    // NOTE: This function will need to be greatly expanded to take in the inventory from the backend algorithm
+    void populateInventoryGrid(){
+        /*for(int x = 0; x < inventoryWidth; x++){
+            for(int y = 0; y < numTiles_y; y++){
+                spawnPipe("straightPipe", x+inventoryStart, y);
+            }
+        }*/
+        spawnPipe("straightPipe", inventoryStart, numTiles_y-1);
+        spawnPipe("straightPipe", inventoryStart, numTiles_y-1);
+        spawnPipe("straightPipe", inventoryStart, numTiles_y-2);
+        spawnPipe("bendyPipe", inventoryStart, numTiles_y-3);
+        spawnPipe("bendyPipe", inventoryStart, numTiles_y-3);
+        spawnPipe("bendyPipe", inventoryStart, numTiles_y-3);
+        spawnPipe("bendyPipe", inventoryStart, numTiles_y-3);
+        spawnPipe("bendyPipe", inventoryStart, numTiles_y-4);
+
     }
 
     public void snapToGrid(){
@@ -150,26 +204,42 @@ public class gridManager : MonoBehaviour
             if(gridX < numTiles_x){
                 if(board[gridX,gridY] == null){
                     pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
-                    pieceDetection(pieceSelected);
+                    //pieceDetection(pieceSelected);
                     board[gridX,gridY] = pieceSelected;
                 }else if(board[gridX,gridY] != null){
                     Destroy(pieceSelected); //might need to inc piece property later
                 }
             // Check if mouse pos is within only the inventory space
             }else if(gridX >= inventoryStart && gridX < inventoryEnd){
-                if(inventory[gridX-numTiles_x-inventoryPadding,gridY] == null){
+                if(inventory[gridX-inventoryStart,gridY] == null){
                     pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
-                    pieceDetection(pieceSelected);
-                    inventory[gridX-numTiles_x-inventoryPadding,gridY] = pieceSelected;
-                    //Debug.Log($"Object was added to : {gridX},{gridY}");
-                }else if(inventory[gridX-numTiles_x-inventoryPadding, gridY] != null){
+                    inventory[gridX-inventoryStart,gridY] = pieceSelected;
+                    inventoryCount[gridX-inventoryStart,gridY]++;
+                }
+                else if(inventory[gridX-inventoryStart,gridY].name.ToString() == pieceSelected.name.ToString()){
+                    pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
+                    inventoryCount[gridX-inventoryStart,gridY]++;
+                    Debug.Log("OMG THIS IS NOT WORKING");
+                }else{
                     Destroy(pieceSelected); //might need to inc piece property later
                 }
+                Debug.Log($"PIECE SELECTED NAME: {pieceSelected.name}");
+                Debug.Log($"INVENTORY NAME: {inventory[gridX-inventoryStart,gridY].name}");
             }          
         }else{
-            pieceDetection(pieceSelected);
+            //pieceDetection(pieceSelected);
         }
         pieceSelected = null;
+
+        string toPrint = "\n";
+        for(int i = 0; i < 2; i ++){
+            for(int j = 0; j < gridY; j++)
+            {
+                toPrint = toPrint + (inventoryCount[i,j]).ToString();
+            }
+            toPrint = toPrint + "||";
+        }
+        Debug.Log(toPrint);
     }
 
     public GameObject returnBoardObject(Vector2 _input){

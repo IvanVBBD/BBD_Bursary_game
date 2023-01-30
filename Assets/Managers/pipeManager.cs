@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class pipeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     Vector2 startPos = new Vector2(0,0); // need to plug into the start point;
-
     private gridManager gridControl; 
     private waterManager waterControl;
     private bool succCon = false;
@@ -15,14 +13,12 @@ public class pipeManager : MonoBehaviour
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         waterControl = GameObject.FindGameObjectWithTag("waterManager").GetComponent<waterManager>();
     }
-    void Start()
-    {
+    void Start(){
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if(Input.GetKeyDown(KeyCode.Q)){
             beginTrans();
         }
@@ -70,7 +66,7 @@ public class pipeManager : MonoBehaviour
                 }
             }
 
-            //This section deals with transerving out all possible ends of the pipe that is not the entry side
+            //This section deals with transversing out all possible ends of the pipe that is not the entry side
             foreach(Vector2 element in connectingPoints){
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     Debug.Log($"chosen point {element}");
@@ -95,31 +91,28 @@ public class pipeManager : MonoBehaviour
                         currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
                     }
                 }
-               
             }
             return;
         }
-        //SHould never reach here
+        // Should never reach here
         return;
-        
     }
 
+/*
     //Spawn pipe section
-    public void spawnPipe(string type){
-    switch(type){
-        case "straightPipe":
-        GameObject currentPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        //spawn right pipe
-        break;
-        case "bendyPipe":
-        //spawn left pipe
-        GameObject temp = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        default:
-        //shouldnt ever get here tbh
-        break;
-    }
-}
+    public void spawnPipe(string type, int inventory_x, int inventory_y){
+        switch(type){
+            case "straightPipe":
+                GameObject currentPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (inventory_x, inventory_y, -1f),Quaternion.identity);
+            break;
+            case "bendyPipe":
+                GameObject temp = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (inventory_x, inventory_y, -1f),Quaternion.identity);
+            break;
+            default:
+                // Shouldn't ever get here tbh
+            break;
+        }
+    }*/
 }
 
 
