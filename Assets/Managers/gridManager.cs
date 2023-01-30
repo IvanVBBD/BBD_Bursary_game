@@ -67,6 +67,8 @@ public class gridManager : MonoBehaviour
         //
         float temp_x = screenSize_x/numTiles_x;
         float temp_y = screenSize_y/numTiles_y;
+        Debug.Log($"SCREEN WIDTH: {screenSize_x}");
+        Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
         //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
         //Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
 
