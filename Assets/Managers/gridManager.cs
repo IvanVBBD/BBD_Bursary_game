@@ -7,8 +7,8 @@ public class gridManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private int numTiles_y; //numTiles_x,    
     private int numTiles_x;
-    private int maxNumTiles_y = 16;
-    private int minNumTiles_y = 8;
+    private const int maxNumTiles_y = 16;
+    private const int minNumTiles_y = 8;
     private int inventoryWidth = 2;
     private int inventoryPadding = 1;
     private int inventoryStart, inventoryEnd;
@@ -135,7 +135,12 @@ public class gridManager : MonoBehaviour
                     //pieceDetection(pieceSelected);
                     board[gridX,gridY] = pieceSelected;
                 }else if(board[gridX,gridY] != null){
-                    Destroy(pieceSelected); //might need to inc piece property later
+                   // Destroy(pieceSelected); //might need to inc piece property later
+                   string creditType = board[gridX,gridY].GetComponent<creditInventory>().returnCreditType(); //crediting inventory
+                   GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);
+                   Destroy(board[gridX,gridY]);
+                   board[gridX,gridY] = pieceSelected;
+                   pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                 }         
             }
         }
