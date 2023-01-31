@@ -10,13 +10,9 @@ public class pipe : MonoBehaviour
     private gridManager gridControl;
     [SerializeField] private Vector2[] allowedDirections;
     [SerializeField] private bool isBalanceSplitter = false;
-
     [SerializeField]private Vector2 cleanDirection;
     [SerializeField]private Vector2 dirtyDirection;
     [SerializeField] private string pipeState;
-
-
-
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
     }
@@ -42,7 +38,6 @@ public class pipe : MonoBehaviour
                 temp.y = Mathf.RoundToInt(temp.y);
                 dirtyDirection = temp;
             }
-            
             gameObject.transform.Rotate(0,0,-90);
         }
     }
