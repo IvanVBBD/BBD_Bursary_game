@@ -93,41 +93,39 @@ public class pipeManager : MonoBehaviour
         return;
     }
 
-/*
+
     //Spawn pipe section
     public void spawnPipe(string type){
-    switch(type){
-        case "straightPipe":
-        GameObject tempStraight = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        //spawn right pipe
-        break;
-        case "bendyPipe":
-        //spawn left pipe
-        GameObject tempBendy = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "splitterPipe":
-        GameObject tempSplitter = Instantiate(Resources.Load<GameObject>("splitterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "specialSplitterPipe":
-        GameObject tempSpecialSplitter = Instantiate(Resources.Load<GameObject>("specialSplitter"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "filterPipe":
-        GameObject tempFilter = Instantiate(Resources.Load<GameObject>("filterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "contaminatorPipe":
-        GameObject tempContaminator = Instantiate(Resources.Load<GameObject>("contaminatorPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "freezerPipe":
-        GameObject tempFreezer = Instantiate(Resources.Load<GameObject>("freezePipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        case "heaterPipe":
-        GameObject tempHeater = Instantiate(Resources.Load<GameObject>("heatPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
-        break;
-        default:
-        //shouldnt ever get here tbh
-        break;
+        switch(type){
+            case "straightPipe":
+                GameObject tempStraight = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "bendyPipe":
+                GameObject tempBendy = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "splitterPipe":
+                GameObject tempSplitter = Instantiate(Resources.Load<GameObject>("splitterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "specialSplitterPipe":
+                GameObject tempSpecialSplitter = Instantiate(Resources.Load<GameObject>("specialSplitter"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "filterPipe":
+                GameObject tempFilter = Instantiate(Resources.Load<GameObject>("filterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "contaminatorPipe":
+                GameObject tempContaminator = Instantiate(Resources.Load<GameObject>("contaminatorPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "freezerPipe":
+                GameObject tempFreezer = Instantiate(Resources.Load<GameObject>("freezePipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            case "heaterPipe":
+                GameObject tempHeater = Instantiate(Resources.Load<GameObject>("heatPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+            break;
+            default:
+                //shouldnt ever get here tbh
+            break;
+        }
     }
-}
 }
 
 
