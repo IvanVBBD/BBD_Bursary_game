@@ -17,8 +17,6 @@ public class gridManager : MonoBehaviour
     [SerializeField] private GameObject pieceSelected;
 
     private GameObject[,] board; //= new GameObject[10,10];
-    private GameObject[,] inventory;
-    private int[,] inventoryCount;
     [SerializeField] private Vector2 startPos,endPos;
 
     void Start(){
@@ -31,8 +29,6 @@ public class gridManager : MonoBehaviour
         numTiles_x = numTiles_y + 4;
 
         board = new GameObject[numTiles_x, numTiles_y];
-        inventory = new GameObject[inventoryWidth, numTiles_y];
-        inventoryCount = new int[inventoryWidth, numTiles_y];
 
         inventoryStart = numTiles_x + inventoryPadding;
         inventoryEnd = numTiles_x + inventoryPadding + inventoryWidth;
@@ -40,7 +36,6 @@ public class gridManager : MonoBehaviour
         resetGrid();
         generateGrid();
         generateInventoryGrid();
-        populateInventoryGrid(); // Will need to send in arguments of which pieces to add
     }
 
     void addStartEndPipes(){
@@ -95,26 +90,6 @@ public class gridManager : MonoBehaviour
         }
     }
 
-    //Spawn pipe section NB NB NB This assumes the spawner isn't making a mistake and trying to spawn multiple types of pipes on top of one another
-    public void spawnPipe(string type, int x, int y){
-        int inventory_x = x-inventoryStart;
-
-        switch(type){
-            case "straightPipe":
-                GameObject straightPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (x, y, -1f),Quaternion.identity);
-                inventory[inventory_x, y] = straightPipe;
-                inventoryCount[inventory_x, y]++;
-            break;
-            case "bendyPipe":
-                GameObject bendyPipe = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (x, y, -1f),Quaternion.identity);
-                inventory[inventory_x, y] = bendyPipe;
-                inventoryCount[inventory_x, y]++;
-            break;
-            default:
-                // Shouldn't ever get here tbh
-            break;
-        }
-    }
 
     //Public interface for gridManager for selecting objects with dragAndDrop
     public void setPickUpObject(GameObject _object){
@@ -144,12 +119,6 @@ public class gridManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    // NOTE: This function will need to be greatly expanded to take in the inventory from the backend algorithm
-    void populateInventoryGrid(){
-        spawnPipe("straightPipe", inventoryStart, numTiles_y-1);
-        spawnPipe("straightPipe", inventoryStart, numTiles_y-1);
     }
 
     public void snapToGrid(){
