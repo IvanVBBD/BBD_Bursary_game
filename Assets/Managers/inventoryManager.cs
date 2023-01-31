@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace inventorySpace{
-    struct inventory {
+    public struct inventory {
         public int straightPipe;
         public int bendyPipe;
         public int filterPipe;
@@ -14,10 +14,13 @@ namespace inventorySpace{
         public int specialSplitterPipe;
     }
 }
+
+
 public class inventoryManager : MonoBehaviour
 {
     // Start is called before the first frame update
     
+    uiManager uiControl;
 
     inventorySpace.inventory currentInventory;
     void generateInventory(){
@@ -31,8 +34,13 @@ public class inventoryManager : MonoBehaviour
        currentInventory.freezePipe = (int)Random.Range(0f,10f);
        currentInventory.splitterPipe = (int)Random.Range(0f,10f);
        currentInventory.specialSplitterPipe = (int)Random.Range(0f,10f);
+       uiControl.updatePipeNumbersUI(currentInventory);
     }
 
+
+    void Awake(){
+        uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
+    }
     void Start()
     {
         generateInventory();
@@ -46,6 +54,7 @@ public class inventoryManager : MonoBehaviour
             case "straightPipe":
                 if(currentInventory.straightPipe > 0){
                     currentInventory.straightPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
 
@@ -53,6 +62,7 @@ public class inventoryManager : MonoBehaviour
             case "bendyPipe":
                 if(currentInventory.bendyPipe > 0){
                     currentInventory.bendyPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -60,6 +70,7 @@ public class inventoryManager : MonoBehaviour
             case "splitterPipe":
                 if(currentInventory.splitterPipe > 0){
                     currentInventory.splitterPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("splitterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -67,6 +78,7 @@ public class inventoryManager : MonoBehaviour
             case "specialSplitterPipe":
                 if(currentInventory.specialSplitterPipe > 0){
                     currentInventory.specialSplitterPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("specialSplitter"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                
@@ -74,6 +86,7 @@ public class inventoryManager : MonoBehaviour
             case "filterPipe":
                 if(currentInventory.filterPipe > 0){
                     currentInventory.filterPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("filterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -81,6 +94,7 @@ public class inventoryManager : MonoBehaviour
             case "contaminatorPipe":
                 if(currentInventory.contaminatorPipe > 0){
                     currentInventory.contaminatorPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("contaminatorPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -88,6 +102,7 @@ public class inventoryManager : MonoBehaviour
             case "freezerPipe":
                 if(currentInventory.freezePipe > 0){
                     currentInventory.freezePipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("freezePipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -95,6 +110,7 @@ public class inventoryManager : MonoBehaviour
             case "heaterPipe":
                 if(currentInventory.heatPipe > 0){
                     currentInventory.heatPipe--;
+                    uiControl.updatePipeNumbersUI(currentInventory);
                     return Instantiate(Resources.Load<GameObject>("heatPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
                 }
                 
@@ -137,6 +153,11 @@ public class inventoryManager : MonoBehaviour
                 //shouldnt ever get here tbh
             break;
         }
+        uiControl.updatePipeNumbersUI(currentInventory);
+    }
+
+    public inventorySpace.inventory returnInventory(){
+        return currentInventory;
     }
 
     // Update is called once per frame

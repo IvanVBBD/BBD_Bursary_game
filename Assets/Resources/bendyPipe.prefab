@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1255357135799819924}
   - component: {fileID: 1255357135799819923}
   - component: {fileID: 1255357135799819920}
-  - component: {fileID: -4458871895226488642}
   m_Layer: 0
   m_Name: bendyPipe
   m_TagString: pipe
@@ -126,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b29339f444a4b48a55fb4ab19ae91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creditsPipe: bendyPipe
   allowedDirections:
   - {x: -1, y: 0}
   - {x: 0, y: -1}
@@ -145,16 +145,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4921909720641164fb13037ae284ebc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4458871895226488642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255357135799819927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26eb7175cd602d40bdd8ee8b4591ae9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  credits: bendyPipe

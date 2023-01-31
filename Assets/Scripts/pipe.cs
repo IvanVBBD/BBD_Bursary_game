@@ -8,6 +8,8 @@ public class pipe : MonoBehaviour
     // Start is called before the first frame update
 
     private gridManager gridControl;
+
+    [SerializeField] private string creditsPipe;
     [SerializeField] private Vector2[] allowedDirections;
     [SerializeField] private bool isBalanceSplitter = false;
     [SerializeField]private Vector2 cleanDirection;
@@ -65,5 +67,7 @@ public class pipe : MonoBehaviour
         Vector2[] tempReturn = {cleanDirection,dirtyDirection};
         return tempReturn;
     }
+
+    public string returnCreditType()=> creditsPipe;
 
 }

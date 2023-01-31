@@ -136,7 +136,7 @@ public class gridManager : MonoBehaviour
                     board[gridX,gridY] = pieceSelected;
                 }else if(board[gridX,gridY] != null){
                    // Destroy(pieceSelected); //might need to inc piece property later
-                   string creditType = board[gridX,gridY].GetComponent<creditInventory>().returnCreditType(); //crediting inventory
+                   string creditType = board[gridX,gridY].GetComponent<pipe>().returnCreditType(); //crediting inventory
                    GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);
                    Destroy(board[gridX,gridY]);
                    board[gridX,gridY] = pieceSelected;
