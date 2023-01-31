@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6834183512638110449}
   - component: {fileID: 6834183512638110454}
   - component: {fileID: 6834183512638110453}
-  - component: {fileID: -604119692482122030}
   m_Layer: 0
   m_Name: heatPipe
   m_TagString: pipe
@@ -126,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b29339f444a4b48a55fb4ab19ae91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creditsPipe: heaterPipe
   allowedDirections:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
@@ -145,16 +145,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4921909720641164fb13037ae284ebc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-604119692482122030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6834183512638110450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26eb7175cd602d40bdd8ee8b4591ae9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  credits: heaterPipe

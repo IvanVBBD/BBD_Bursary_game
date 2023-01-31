@@ -11,6 +11,7 @@ TagManager:
   - start
   - waterManager
   - inventoryManager
+  - uiManager
   layers:
   - Default
   - TransparentFX
