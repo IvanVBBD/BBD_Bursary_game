@@ -35,7 +35,7 @@ public class gridManager : MonoBehaviour
 
         resetGrid();
         generateGrid();
-        generateInventoryGrid();
+       // generateInventoryGrid();
     }
 
     void addStartEndPipes(){
