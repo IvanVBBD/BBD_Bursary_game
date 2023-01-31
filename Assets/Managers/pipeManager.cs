@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class pipeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Vector2 startPos = new Vector2(0,0); // need to plug into the start point;
-
     private gridManager gridControl; 
     private waterManager waterControl;
     private bool succCon = false;
@@ -15,12 +12,6 @@ public class pipeManager : MonoBehaviour
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         waterControl = GameObject.FindGameObjectWithTag("waterManager").GetComponent<waterManager>();
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q)){
@@ -108,12 +99,30 @@ public class pipeManager : MonoBehaviour
     public void spawnPipe(string type){
     switch(type){
         case "straightPipe":
-        GameObject currentPipe = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        GameObject tempStraight = Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
         //spawn right pipe
         break;
         case "bendyPipe":
         //spawn left pipe
-        GameObject temp = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        GameObject tempBendy = Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "splitterPipe":
+        GameObject tempSplitter = Instantiate(Resources.Load<GameObject>("splitterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "specialSplitterPipe":
+        GameObject tempSpecialSplitter = Instantiate(Resources.Load<GameObject>("specialSplitter"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "filterPipe":
+        GameObject tempFilter = Instantiate(Resources.Load<GameObject>("filterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "contaminatorPipe":
+        GameObject tempContaminator = Instantiate(Resources.Load<GameObject>("contaminatorPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "freezerPipe":
+        GameObject tempFreezer = Instantiate(Resources.Load<GameObject>("freezePipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+        break;
+        case "heaterPipe":
+        GameObject tempHeater = Instantiate(Resources.Load<GameObject>("heatPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
         break;
         default:
         //shouldnt ever get here tbh

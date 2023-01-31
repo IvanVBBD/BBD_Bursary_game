@@ -15,8 +15,6 @@ public class gridManager : MonoBehaviour
 
     [SerializeField] private Vector2 startPos,endPos;
 
-  
-
     void Start(){
         resetGrid();
         GenerateGrid();
@@ -41,8 +39,6 @@ public class gridManager : MonoBehaviour
         Camera.main.transform.position = new Vector3((float)width/2 -0.5f,(float)height/2 - 0.5f,-10f);
 
     }
-
-
     //Public interface for gridManager for selecting objects with dragAndDrop
     public void setPickUpObject(GameObject _object){
         pieceDetection(_object);
