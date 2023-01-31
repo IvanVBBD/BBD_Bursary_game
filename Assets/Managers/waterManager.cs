@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 namespace waterSpace
     {
         public enum waterStates
@@ -18,31 +16,15 @@ namespace waterSpace
         public waterSpace.waterStates waterPhaseState;
         }
     }
-
-
-     
-
-
 public class waterManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private waterSpace.waterStates waterPhaseState = waterSpace.waterStates.WATER;
-
     private waterSpace.waterObject originalWater;
-    
-
     void Awake(){
         originalWater.waterDirtState = 0f;
         originalWater.waterPhaseState = waterSpace.waterStates.WATER;
     }
-
-    
-
-
     public bool canMoveDirection(Vector2 _direction, waterSpace.waterObject water){
-        Debug.Log($"Direction Recieved: {_direction}");
-        Debug.Log($"What we need {Vector2.up}");
-        Debug.Log($"Water State: {water.waterPhaseState}");
         switch(water.waterPhaseState){
             case waterSpace.waterStates.STEAM:
             if(_direction == Vector2.right || _direction == Vector2.left || _direction == Vector2.up){
@@ -99,9 +81,4 @@ public class waterManager : MonoBehaviour
 
      public waterSpace.waterObject issueFreshWaterState() => originalWater;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
