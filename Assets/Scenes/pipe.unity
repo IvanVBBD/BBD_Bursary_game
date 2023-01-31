@@ -958,7 +958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 116, y: 772}
+  m_AnchoredPosition: {x: 293.8, y: 419.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703815668
@@ -1084,8 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821c5617a236fc4408e79f1e20620b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  numTiles_y: 0
   tile: {fileID: 5941883187420139287, guid: 0b365a11394695e47b60c932e0a81651, type: 3}
   pieceSelected: {fileID: 0}
   startPos: {x: 0, y: 0}
@@ -1815,7 +1814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 116, y: 899}
+  m_AnchoredPosition: {x: 298.7, y: 296}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1205649071
