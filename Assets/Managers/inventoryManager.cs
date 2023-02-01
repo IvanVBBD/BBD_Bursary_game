@@ -21,25 +21,20 @@ public class inventoryManager : MonoBehaviour
     // Start is called before the first frame update
     
     uiManager uiControl;
+    challengeManager challengeControl;
 
     inventorySpace.inventory currentInventory;
     void generateInventory(){
 
         //hook in to number of pipes to spawn here for each type
-       currentInventory.straightPipe = (int)Random.Range(0f,10f);
-       currentInventory.bendyPipe = (int)Random.Range(0f,10f);
-       currentInventory.filterPipe = (int)Random.Range(0f,10f);
-       currentInventory.contaminatorPipe = (int)Random.Range(0f,10f);
-       currentInventory.heatPipe = (int)Random.Range(0f,10f);
-       currentInventory.freezePipe = (int)Random.Range(0f,10f);
-       currentInventory.splitterPipe = (int)Random.Range(0f,10f);
-       currentInventory.specialSplitterPipe = (int)Random.Range(0f,10f);
+       currentInventory = challengeControl.returnInventory();
        uiControl.updatePipeNumbersUI(currentInventory);
     }
 
 
     void Awake(){
         uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
+        challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
     }
     void Start()
     {
