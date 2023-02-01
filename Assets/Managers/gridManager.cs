@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class gridManager : MonoBehaviour
 {
+    // Start is called before the first frame update
+    challengeManager challengeControl;
     [SerializeField] private int numTiles_y; //numTiles_x,    
     private int numTiles_x;
     private const int maxNumTiles_y = 16;
@@ -24,8 +26,9 @@ public class gridManager : MonoBehaviour
 
     void Awake(){
         uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
+        challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
     }
-
+    
     void Start(){
         if(numTiles_y < minNumTiles_y){
             numTiles_y = minNumTiles_y;
@@ -48,8 +51,8 @@ public class gridManager : MonoBehaviour
 
     void addStartEndPipes(){
         //hook in here to set-up end/start point
-        endPos = new Vector2((int)Random.Range(0f,numTiles_x - 1),(int)Random.Range(0f,numTiles_y - 1));
-        startPos = new Vector2((int)Random.Range(0f,numTiles_x - 1),(int)Random.Range(0f,numTiles_y - 1));
+        endPos = challengeControl.returnEndPos();
+        startPos = challengeControl.returnStartPos();
         board[(int)startPos.x,(int)startPos.y] = Instantiate(Resources.Load<GameObject>("start"),new Vector3 ((int)startPos.x, (int)startPos.y, -1f),Quaternion.identity);
         board[(int)endPos.x,(int)endPos.y] = Instantiate(Resources.Load<GameObject>("end"),new Vector3 ((int)endPos.x, (int)endPos.y, -1f),Quaternion.identity);
     }

@@ -8,6 +8,7 @@ public class pipe : MonoBehaviour
     // Start is called before the first frame update
 
     private gridManager gridControl;
+    private challengeManager challengeControl;
 
     [SerializeField] private string creditsPipe;
     [SerializeField] private Vector2[] allowedDirections;
@@ -17,6 +18,7 @@ public class pipe : MonoBehaviour
     [SerializeField] private string pipeState;
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
+        challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
     }
 
     void rotate(){

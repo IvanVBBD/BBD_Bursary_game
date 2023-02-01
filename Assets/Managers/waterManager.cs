@@ -21,7 +21,7 @@ public class waterManager : MonoBehaviour
     // Start is called before the first frame update
     private waterSpace.waterObject originalWater;
     void Awake(){
-        originalWater.waterDirtState = 0f;
+        originalWater.waterDirtState = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().returnWaterDirtLevel();
         originalWater.waterPhaseState = waterSpace.waterStates.WATER;
     }
     public bool canMoveDirection(Vector2 _direction, waterSpace.waterObject water){
