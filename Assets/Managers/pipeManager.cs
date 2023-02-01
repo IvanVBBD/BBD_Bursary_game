@@ -25,7 +25,7 @@ public class pipeManager : MonoBehaviour
     void beginTrans(){
         succCon = false;
         Vector2 foundStart = gridControl.returnStartPosition();
-        Debug.Log("Starting Trans");
+        // Debug.Log("Starting Trans");
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
         tranverse(Vector2.right,foundStart,water);
         if(succCon == true){
@@ -37,12 +37,12 @@ public class pipeManager : MonoBehaviour
 
      void tranverse(Vector2 change, Vector2 currentPos, waterSpace.waterObject water){
         Vector2 oldPos = currentPos;
-        Debug.Log($"old Postion: {oldPos}");
+        // Debug.Log($"old Postion: {oldPos}");
         currentPos = new Vector2((int)(currentPos.x + change.x),(int)(currentPos.y + change.y));
-        Debug.Log($"New Postion: {currentPos}");
+        // Debug.Log($"New Postion: {currentPos}");
         GameObject currentPiece = gridControl.returnBoardObject(currentPos);
         if(currentPiece == null){
-            Debug.Log("YUUUP its null");
+            // Debug.Log("YUUUP its null");
             return;
         }else if (currentPiece.gameObject.tag == "end"){
             gridControl.returnBoardObject(oldPos).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
@@ -67,7 +67,7 @@ public class pipeManager : MonoBehaviour
             //This section deals with transversing out all possible ends of the pipe that is not the entry side
             foreach(Vector2 element in connectingPoints){
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
-                    Debug.Log($"chosen point {element}");
+                    // Debug.Log($"chosen point {element}");
                     if(waterControl.canMoveDirection(element,water)){
                         if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
                             Vector2[] combinedData = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
@@ -85,7 +85,7 @@ public class pipeManager : MonoBehaviour
                             tranverse(element,currentPos,water);
                         }
                     }else{
-                        Debug.Log("Failed Water state check for direction");
+                        // Debug.Log("Failed Water state check for direction");
                         currentPiece.GetComponent<SpriteRenderer>().color = Color.blue;
                     }
                 }
@@ -102,7 +102,7 @@ public class pipeManager : MonoBehaviour
        GameObject currentPipe = inventoryControl.requestPipeSpawn(type);
        if(currentPipe == null){
             //refused request from the inventory 
-            Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
+            // Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
        }else{
             //You now have reference to the object that spawns;
        }

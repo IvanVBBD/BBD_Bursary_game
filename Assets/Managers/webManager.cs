@@ -38,9 +38,9 @@ public class webManager : MonoBehaviour
 
     public void startGame(){
         string response = fetch(url,"GET");
-        Debug.Log(response);
+        // Debug.Log(response);
         backendResponse joke = JsonUtility.FromJson<backendResponse>(response);
-        Debug.Log(joke.inventory[0]);
+        // Debug.Log(joke.inventory[0]);
         SceneManager.LoadScene(1);
     }
 

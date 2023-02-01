@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class gridManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private int numTiles_y; //numTiles_x,    
     private int numTiles_x;
     private const int maxNumTiles_y = 16;
@@ -13,11 +13,18 @@ public class gridManager : MonoBehaviour
     private int inventoryPadding = 1;
     private int inventoryStart, inventoryEnd;
     [SerializeField] private GameObject tile;
+    [SerializeField] private GameObject tile_inventory;
+    
 
     [SerializeField] private GameObject pieceSelected;
 
     private GameObject[,] board; //= new GameObject[10,10];
     [SerializeField] private Vector2 startPos,endPos;
+    uiManager uiControl;
+
+    void Awake(){
+        uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
+    }
 
     void Start(){
         if(numTiles_y < minNumTiles_y){
@@ -35,7 +42,8 @@ public class gridManager : MonoBehaviour
 
         resetGrid();
         generateGrid();
-       // generateInventoryGrid();
+        moveCameraToGrid();
+        generateInventoryGrid();
     }
 
     void addStartEndPipes(){
@@ -72,13 +80,18 @@ public class gridManager : MonoBehaviour
             }
         }
         addStartEndPipes();
-        moveCameraToGrid();
     }
 
     void generateInventoryGrid(){
-        for(int x = numTiles_x + inventoryPadding; x < numTiles_x + inventoryPadding + inventoryWidth; x++){
-            for(int y = 0; y < numTiles_y; y++){
-                GameObject spawnedTile = Instantiate(tile,new Vector3(x,y,0),Quaternion.identity);
+        int min_x = numTiles_x + inventoryPadding;
+        int max_x = numTiles_x + inventoryPadding + inventoryWidth;
+        int min_y = 1;
+        int max_y = numTiles_y - 1;
+
+        for(int x = min_x; x < max_x; x++){
+            for(int y = min_y; y < max_y; y++){
+                
+                GameObject spawnedTile = Instantiate(tile_inventory,new Vector3(x,y,0),Quaternion.identity);
                 spawnedTile.name = $"Tile - {x} , {y}";
 
                 int dirtChooser = Random.Range(0, 4);
@@ -88,6 +101,8 @@ public class gridManager : MonoBehaviour
                 sprRend.size = new Vector2(1f, 1f);
             }
         }
+        uiControl.setInventoryPositions(min_x, min_y, max_x, max_y);
+
     }
 
 

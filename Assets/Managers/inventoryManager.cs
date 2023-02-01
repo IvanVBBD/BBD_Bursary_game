@@ -44,9 +44,9 @@ public class inventoryManager : MonoBehaviour
     void Start()
     {
         generateInventory();
-        Debug.Log("====Starting======");
-        Debug.Log("Inventory: ");
-        Debug.Log(currentInventory.straightPipe);
+        // Debug.Log("====Starting======");
+        // Debug.Log("Inventory: ");
+        // Debug.Log(currentInventory.straightPipe);
     }
 
     public GameObject requestPipeSpawn(string type){
@@ -123,7 +123,7 @@ public class inventoryManager : MonoBehaviour
     }
 
     public void creditPipes(string type){
-        Debug.Log("HIT! should credit");
+        // Debug.Log("HIT! should credit");
         switch(type){
             case "straightPipe":
                 currentInventory.straightPipe++;
