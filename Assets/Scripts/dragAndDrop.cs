@@ -5,7 +5,6 @@ using UnityEngine;
 public class dragAndDrop : MonoBehaviour
 {
     // Start is called before the first frame update
-    static bool canDrag = true;
     private bool drag = false;
 
     private gridManager gridControl;
@@ -19,12 +18,10 @@ public class dragAndDrop : MonoBehaviour
     }
 
     void OnMouseDown(){
-        if(canDrag && !drag ){
-            canDrag = false;
+        if(!drag ){
             drag = true;
             gridControl.setPickUpObject(this.gameObject);
-        }else if( !canDrag && drag){
-            canDrag = true;
+        }else if(drag){
             drag = false;
             gridControl.snapToGrid();
         }
@@ -40,5 +37,13 @@ public class dragAndDrop : MonoBehaviour
     void Update()
     {
         checkDrag();
+    }
+
+    public void setFirstPickup(){
+        Debug.Log($"DRAG: {drag}");
+        drag = true;
+        gridControl.setPickUpObject(this.gameObject);
+
+        Debug.Log("WHY");
     }
 }
