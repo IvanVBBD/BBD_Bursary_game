@@ -52,27 +52,43 @@ public class uiManager : MonoBehaviour
 
         if(currentInventory.straightPipe == 0){
             straightPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            straightPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.bendyPipe == 0){
             bendyPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            bendyPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.splitterPipe == 0){
             splitterPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            splitterPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.specialSplitterPipe == 0){
             specialSplitterPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            specialSplitterPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.filterPipe == 0){
             filterPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            filterPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.contaminatorPipe == 0){
             contaminatorPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            contaminatorPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.freezePipe == 0){
             freezePipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            freezePipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
         if(currentInventory.heatPipe == 0){
             heaterPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
+        }else{
+            heaterPipeButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
     }
 

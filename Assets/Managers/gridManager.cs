@@ -158,6 +158,11 @@ public class gridManager : MonoBehaviour
                    pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                 }         
             }
+            else if(gridX >= inventoryStart){
+                string creditType = pieceSelected.GetComponent<pipe>().returnCreditType(); //crediting inventory
+                GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);   
+                Destroy(pieceSelected);
+            }
         }
         pieceSelected = null;
     }
