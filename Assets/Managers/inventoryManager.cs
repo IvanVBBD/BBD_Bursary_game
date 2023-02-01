@@ -24,6 +24,8 @@ public class inventoryManager : MonoBehaviour
     challengeManager challengeControl;
 
     inventorySpace.inventory currentInventory;
+    [SerializeField] RectTransform canvas;
+
     void generateInventory(){
 
         //hook in to number of pipes to spawn here for each type
@@ -45,12 +47,15 @@ public class inventoryManager : MonoBehaviour
     }
 
     public GameObject requestPipeSpawn(string type){
-         switch(type){
+        Vector2 mouseLocalPos2;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, Input.mousePosition, Camera.main, out mouseLocalPos2);
+        Vector3 mouseLocalPos3 = new Vector3(mouseLocalPos2.x, mouseLocalPos2.y, -2); // Note, this does not spawn the object in front of the button (looks weird for player)
+        switch(type){
             case "straightPipe":
                 if(currentInventory.straightPipe > 0){
                     currentInventory.straightPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("straightPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("straightPipe"),mouseLocalPos3,Quaternion.identity);
                 }
 
             break;
@@ -58,7 +63,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.bendyPipe > 0){
                     currentInventory.bendyPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("bendyPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("bendyPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;
@@ -66,7 +71,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.splitterPipe > 0){
                     currentInventory.splitterPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("splitterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("splitterPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;
@@ -74,7 +79,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.specialSplitterPipe > 0){
                     currentInventory.specialSplitterPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("specialSplitter"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("specialSplitter"),mouseLocalPos3 ,Quaternion.identity);
                 }
                
             break;
@@ -82,7 +87,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.filterPipe > 0){
                     currentInventory.filterPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("filterPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("filterPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;
@@ -90,7 +95,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.contaminatorPipe > 0){
                     currentInventory.contaminatorPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("contaminatorPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("contaminatorPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;
@@ -98,7 +103,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.freezePipe > 0){
                     currentInventory.freezePipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("freezePipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("freezePipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;
@@ -106,7 +111,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.heatPipe > 0){
                     currentInventory.heatPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("heatPipe"),new Vector3 (11, 5, -1f),Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("heatPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                 
             break;

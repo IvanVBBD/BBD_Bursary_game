@@ -99,11 +99,12 @@ public class pipeManager : MonoBehaviour
 
     //Spawn pipe section
     public void spawnPipe(string type){
-       GameObject currentPipe = inventoryControl.requestPipeSpawn(type);
-       if(currentPipe == null){
-            //refused request from the inventory 
-            // Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
-       }else{
+        GameObject currentPipe = inventoryControl.requestPipeSpawn(type);
+        if(currentPipe == null){
+            Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
+        }else{
+            currentPipe.GetComponent<dragAndDrop>().setFirstPickup();
+
             //You now have reference to the object that spawns;
        }
     }
