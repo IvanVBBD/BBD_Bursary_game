@@ -56,12 +56,21 @@ public class uiManager : MonoBehaviour
         inventoryStart_y = yStart;
         inventoryEnd_x = xEnd;
         inventoryEnd_y = yEnd;
-        setPipeButtonPosition();
+        setPipeButtonPosition(); // This does not work :( 
     }
 
     public void setPipeButtonPosition(){
         int count = 0; 
                     
+        // Calculating the current screen width of ONE inventory block (according to our current camera position and size)
+        Vector2 tempScreenPos1 = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector2(0,0));                 
+        Vector2 tempAnchoredPos1;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, tempScreenPos1, Camera.main, out tempAnchoredPos1);
+        Vector2 tempScreenPos2 = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector2(1,0));                 
+        Vector2 tempAnchoredPos2;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, tempScreenPos2, Camera.main, out tempAnchoredPos2);
+        float inventoryWidth = tempAnchoredPos2.x - tempAnchoredPos1.x;
+
         for(int y = inventoryEnd_y - 1; y > inventoryStart_y; y--){
             for(int x = inventoryStart_x; x < inventoryEnd_x; x++){
                 Vector2 inventoryPos = new Vector2(x,y);
@@ -70,7 +79,7 @@ public class uiManager : MonoBehaviour
                     Vector2 anchoredPos;
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, screenPos, Camera.main, out anchoredPos);
                     buttonRT[count].anchoredPosition = anchoredPos;
-                    Debug.Log($"ANCHORED POS: {anchoredPos}");
+                    buttonRT[count].sizeDelta = new Vector2(0.9f*inventoryWidth, 0.9f*inventoryWidth);
                 }
                 else{
                     break;
