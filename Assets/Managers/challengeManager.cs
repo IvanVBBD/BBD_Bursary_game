@@ -34,18 +34,30 @@ public class challengeManager : MonoBehaviour
 
     string theme;
     int waterDirtLevel = 0;
+    
    
 
    void Awake(){
+        
         if(instance != null){
             Destroy(gameObject);
         }else{
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    
-    startPos = Vector2.zero;
-    endPos = Vector2.zero;
+        waterDirtLevel = Random.Range(-2,3);
+        currentInventory.bendyPipe = 10;
+        currentInventory.contaminatorPipe = 10;
+        currentInventory.filterPipe = 10;
+        currentInventory.freezePipe = 10;
+        currentInventory.heatPipe = 10; 
+        currentInventory.straightPipe = 10;
+        currentInventory.specialSplitterPipe = 10;
+        currentInventory.splitterPipe = 10;
+        startPos = new Vector2 (1,6);
+        endPos = new Vector2(7,3);
+     //startPos = Vector2.zero;
+     //endPos = Vector2.zero;
    }
 
 
@@ -95,7 +107,6 @@ public class challengeManager : MonoBehaviour
         this.setWaterDirtLevel(_challenge.waterData);
         this.setUpInventory(_challenge);
         this.setTheme(_challenge.theme);
-
         SceneManager.LoadScene(1);
     }
 

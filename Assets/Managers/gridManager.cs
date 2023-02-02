@@ -10,7 +10,7 @@ public class gridManager : MonoBehaviour
     [SerializeField] private int numTiles_y; //numTiles_x,    
     private int numTiles_x;
     private const int maxNumTiles_y = 16;
-    private const int minNumTiles_y = 8;
+    private const int minNumTiles_y = 12;
     private int inventoryWidth = 2;
     private int inventoryPadding = 1;
     private int inventoryStart, inventoryEnd;
