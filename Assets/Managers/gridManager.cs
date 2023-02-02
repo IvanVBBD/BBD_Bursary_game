@@ -148,7 +148,7 @@ public class gridManager : MonoBehaviour
         if(gridX >= 0 && gridY >= 0 && gridY < numTiles_y){
             // Check if mouse pos is within only the grid space
             if(gridX < numTiles_x){
-                if(board[gridX,gridY] == null){
+                if(board[gridX,gridY] == null && pieceSelected != null){
                     pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                     //pieceDetection(pieceSelected);
                     board[gridX,gridY] = pieceSelected;
