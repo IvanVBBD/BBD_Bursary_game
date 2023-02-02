@@ -65,8 +65,8 @@ public class gridManager : MonoBehaviour
         Debug.Log($"SCREEN WIDTH: {screenSize_x}");
         Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
         
-        Camera.main.transform.position = new Vector3((float)(inventoryEnd)/2 -0.5f,(float)numTiles_y/2,-10f);
-        Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 1.5f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )
+        Camera.main.transform.position = new Vector3((float)(inventoryEnd)/2 -0.5f,(float)numTiles_y/2 +0.5f,-10f);
+        Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 2.0f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )
     }
 
     void generateGrid(){
@@ -88,8 +88,8 @@ public class gridManager : MonoBehaviour
     void generateInventoryGrid(){
         int min_x = numTiles_x + inventoryPadding;
         int max_x = numTiles_x + inventoryPadding + inventoryWidth;
-        int min_y = 1;
-        int max_y = numTiles_y - 1;
+        int min_y = 0;
+        int max_y = numTiles_y - 2;
 
         for(int x = min_x; x < max_x; x++){
             for(int y = min_y; y < max_y; y++){

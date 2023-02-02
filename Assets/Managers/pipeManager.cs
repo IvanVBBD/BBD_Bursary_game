@@ -17,12 +17,10 @@ public class pipeManager : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q)){
-            beginTrans();
-        }
+
     }
 
-    void beginTrans(){
+    public void beginTrans(){
         succCon = false;
         Vector2 foundStart = gridControl.returnStartPosition();
         // Debug.Log("Starting Trans");
