@@ -75,7 +75,7 @@ public class waterManager : MonoBehaviour
                     water.waterDirtState += 1;
                 break;
             }
-            Debug.Log($"water state is now: {water.waterPhaseState}");
+            // Debug.Log($"water state is now: {water.waterPhaseState}");
             return water;
     }
 

@@ -23,14 +23,14 @@ public class pipe : MonoBehaviour
 
     void rotate(){
         if(Input.GetMouseButtonDown(1) && this.gameObject == gridControl.returnCurrentPickUp()){
-            Debug.Log("=========================");
+            // Debug.Log("=========================");
             for(int index = 0; index < allowedDirections.Length; index++){
-                Debug.Log($"old direction: {allowedDirections[index]} ");
+                // Debug.Log($"old direction: {allowedDirections[index]} ");
                 Vector2 temp = rotate(allowedDirections[index], -1f * Mathf.PI/ 2);
                 temp.x = Mathf.RoundToInt(temp.x);
                 temp.y = Mathf.RoundToInt(temp.y);
                 allowedDirections[index] = temp;
-                Debug.Log($"new direction: {allowedDirections[index]} ");
+                // Debug.Log($"new direction: {allowedDirections[index]} ");
             }
             if(isBalanceSplitter){
                 Vector2 temp = rotate(cleanDirection,-1f * Mathf.PI/ 2);
