@@ -6,6 +6,7 @@ public class dragAndDrop : MonoBehaviour
 {
     // Start is called before the first frame update
     private bool drag = false;
+    static bool canDrag = true;
 
     private gridManager gridControl;
 
@@ -18,11 +19,13 @@ public class dragAndDrop : MonoBehaviour
     }
 
     void OnMouseDown(){
-        if(!drag ){
+        if(!drag && canDrag ){
             drag = true;
+            canDrag = false;
             gridControl.setPickUpObject(this.gameObject);
         }else if(drag){
             drag = false;
+            canDrag = true;
             gridControl.snapToGrid();
         }
     }
