@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 553868322}
   m_Layer: 0
   m_Name: webManager
-  m_TagString: Untagged
+  m_TagString: webManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

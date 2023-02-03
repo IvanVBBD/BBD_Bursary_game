@@ -13,6 +13,7 @@ TagManager:
   - inventoryManager
   - uiManager
   - challengeManager
+  - webManager
   layers:
   - Default
   - TransparentFX
