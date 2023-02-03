@@ -13,6 +13,7 @@ TagManager:
   - inventoryManager
   - uiManager
   - challengeManager
+  - animationManager
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1379420363
+    locked: 0
+  - name: Pipes
+    uniqueID: 1275837641
     locked: 0
