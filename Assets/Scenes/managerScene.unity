@@ -207,9 +207,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 553868322}
-        m_TargetAssemblyTypeName: webManager, Assembly-CSharp
-        m_MethodName: startGame
+      - m_Target: {fileID: 83998372}
+        m_TargetAssemblyTypeName: challengeManager, Assembly-CSharp
+        m_MethodName: startChallenge
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
