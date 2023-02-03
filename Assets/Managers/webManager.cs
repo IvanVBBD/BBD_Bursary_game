@@ -6,10 +6,17 @@ using System.Net;
 public class webManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static webManager instance;
     challengeManager challengeControl;
     const string url = "http://127.0.0.1:3002/bursar/requestchallenge";
    
     void Awake(){
+        if(instance != null){
+            Destroy(gameObject);
+        }else{
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
     }
 
@@ -20,6 +27,9 @@ public class webManager : MonoBehaviour
         System.IO.Stream webStream = webResponse.GetResponseStream();
         System.IO.StreamReader reader = new System.IO.StreamReader(webStream);
         string data = reader.ReadToEnd();
+        reader.Close();
+        webStream.Close();
+        webResponse.Close();
         return data;
     }
 
