@@ -152,7 +152,7 @@ public class gridManager : MonoBehaviour
                     pieceSelected.transform.position = new Vector3(gridX,gridY,-1f);
                     //pieceDetection(pieceSelected);
                     board[gridX,gridY] = pieceSelected;
-                }else if(board[gridX,gridY] != null){
+                }else if(board[gridX,gridY] != null && board[gridX,gridY].tag != "start" && board[gridX,gridY].tag != "end"){
                    // Destroy(pieceSelected); //might need to inc piece property later
                    string creditType = board[gridX,gridY].GetComponent<pipe>().returnCreditType(); //crediting inventory
                    GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);

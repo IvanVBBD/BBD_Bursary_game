@@ -48,8 +48,8 @@ public class pipeManager : MonoBehaviour
             if(water.waterDirtState == 0f && water.waterPhaseState == waterSpace.waterStates.WATER){
                 succCon = true;
             }
-            if(GameObject.FindGameObjectWithTag("webManager")){
-                GameObject.FindGameObjectWithTag("webManager").GetComponent<webManager>().startGame();
+            if(GameObject.FindGameObjectWithTag("challengeManager")){
+                GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().startChallenge();
             }
             return;
         }else if (currentPiece.gameObject.tag == "pipe"){

@@ -15,6 +15,7 @@ TagManager:
   - challengeManager
   - animationManager
   - webManager
+  - statManager
   layers:
   - Default
   - TransparentFX

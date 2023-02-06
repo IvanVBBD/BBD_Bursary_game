@@ -16,6 +16,10 @@ public class uiManager : MonoBehaviour
     [SerializeField] GameObject splitterPipeButton;
     [SerializeField] GameObject specialSplitterPipeButton;
 
+    [SerializeField] GameObject resetButton;
+
+    [SerializeField] GameObject waterLevelLabel;
+
     inventoryManager inventoryControl;
     [SerializeField] RectTransform canvas;
     private RectTransform straightRT, bendyRT, filterRT, contaminatorRT, heaterRT, freezeRT, splitterRT, specialSplitterRT;
@@ -23,6 +27,11 @@ public class uiManager : MonoBehaviour
     private int inventoryStart_x, inventoryEnd_x, inventoryStart_y, inventoryEnd_y;
     void Awake(){
         inventoryControl = GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>();
+        initButtonRT();
+        setWaterLabel();
+    }
+
+    void initButtonRT(){
         buttonRT = new RectTransform[8];
         buttonRT[0] = straightPipeButton.GetComponent<RectTransform>();
         buttonRT[1] = bendyPipeButton.GetComponent<RectTransform>();
@@ -35,6 +44,11 @@ public class uiManager : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    void setWaterLabel(){
+        waterLevelLabel.GetComponent<TextMeshProUGUI>().text = "Balance: " + GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().returnWaterDirtLevel().ToString();
+    }
+
     void Update()
     {
 
@@ -49,7 +63,12 @@ public class uiManager : MonoBehaviour
         contaminatorPipeButton.GetComponentInChildren<TextMeshProUGUI>().text = currentInventory.contaminatorPipe.ToString();
         freezePipeButton.GetComponentInChildren<TextMeshProUGUI>().text = currentInventory.freezePipe.ToString();
         heaterPipeButton.GetComponentInChildren<TextMeshProUGUI>().text = currentInventory.heatPipe.ToString();
+        updateButtonGreyScale(currentInventory);
 
+        
+    }
+
+    void updateButtonGreyScale(inventorySpace.inventory currentInventory){
         if(currentInventory.straightPipe == 0){
             straightPipeButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1f);
         }else{
