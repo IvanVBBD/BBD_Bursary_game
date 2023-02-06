@@ -98,4 +98,8 @@ public class pipeManager : MonoBehaviour
             //You now have reference to the object that spawns;
        }
     }
+
+    public bool getSuccCon(){
+        return succCon;
+    }
 }
