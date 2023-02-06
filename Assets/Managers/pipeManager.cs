@@ -50,7 +50,7 @@ public class pipeManager : MonoBehaviour
         if(currentPiece == null){
             return;
         }else if (currentPiece.gameObject.tag == "end"){
-            gridControl.returnBoardObject(oldPos).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            //gridControl.returnBoardObject(oldPos).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             if(water.waterDirtState == 0f && water.waterPhaseState == waterSpace.waterStates.WATER){
                 succCon = true;
             }
