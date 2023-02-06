@@ -18,7 +18,10 @@ public class pipeManager : MonoBehaviour
     }
 
     public void beginTrans(){
+        Debug.Log("BEGIN TRANS");
         succCon = false;
+        animationControl.resetAnimations();
+
         Vector2 foundStart = gridControl.returnStartPosition();
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
         tranverse(Vector2.right,foundStart,water);

@@ -16,9 +16,24 @@ public class animationManager : MonoBehaviour
         pipeControl = GameObject.FindGameObjectWithTag("pipeManager").GetComponent<pipeManager>();
     }
 
+    public void resetAnimations(){
+        for(int x = 0; x < boardHeight + 4; x++){
+            for(int y = 0; y < boardHeight; y++){
+
+                if(animationBoard[(int)x, (int)y]){
+                    GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
+                    if(tempPiece != null){
+                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
+
+                    }
+                }
+            }
+        }
+    }
+
     public void transverseAnimations(){
         boardHeight = gridControl.returnBoardHeight();
-        animationBoard = new bool[boardHeight, boardHeight]; // Should set all values to false by default
+        animationBoard = new bool[boardHeight + 4, boardHeight]; // Should set all values to false by default
 
         startPos = gridControl.returnStartPosition();
         GameObject startPiece = gridControl.returnBoardObject(startPos);

@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 6834183512638110449}
   - component: {fileID: 6834183512638110454}
   - component: {fileID: 6834183512638110453}
-  - component: {fileID: -5118468661262151583}
   m_Layer: 0
   m_Name: heatPipe
   m_TagString: pipe
@@ -371,6 +370,7 @@ MonoBehaviour:
   cleanDirection: {x: 0, y: 0}
   dirtyDirection: {x: 0, y: 0}
   pipeState: HEAT
+  connectedStatus: 0
 --- !u!114 &6834183512638110453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,18 +381,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4921909720641164fb13037ae284ebc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-5118468661262151583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6834183512638110450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5965357545fce24896cc442cea4b33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7602292804886440386
