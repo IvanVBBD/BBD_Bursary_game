@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class pipeManager : MonoBehaviour
@@ -51,7 +49,7 @@ public class pipeManager : MonoBehaviour
         }else if (currentPiece.gameObject.tag == "pipe"){
             // Get stuff off object and call transverse again
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
-            water = waterControl.alterWaterPhaseState(currentPiece.GetComponent<pipe>().returnPipeEffect(),water);
+            water = waterControl.alterWaterPhaseState(currentPiece, water);
 
             // Validating pipe connection section of algorithm
             Vector2 connectingPostion = Vector2.zero; // init
@@ -80,8 +78,6 @@ public class pipeManager : MonoBehaviour
                             currentPiece.GetComponent<pipe>().setConnectedStatus();
                             tranverse(element,currentPos,water); // No split
                         }
-                    }else{
-                        currentPiece.GetComponent<pipe>().setConnectedStatus();
                     }
                 }
             }

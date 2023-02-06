@@ -1,12 +1,10 @@
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class animationManager : MonoBehaviour
 {
     gridManager gridControl;
     pipeManager pipeControl;
+    waterManager waterControl;
     private int boardHeight;
     private Vector2 startPos;
     private bool[,] animationBoard;
@@ -14,6 +12,7 @@ public class animationManager : MonoBehaviour
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         pipeControl = GameObject.FindGameObjectWithTag("pipeManager").GetComponent<pipeManager>();
+        waterControl = GameObject.FindGameObjectWithTag("waterManager").GetComponent<waterManager>();
     }
 
     public void resetAnimations(){
@@ -24,8 +23,8 @@ public class animationManager : MonoBehaviour
                     GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
                     if(tempPiece != null){
                         tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
-
                     }
+                    animationBoard[(int)x, (int)y] = false;
                 }
             }
         }
@@ -38,6 +37,7 @@ public class animationManager : MonoBehaviour
         startPos = gridControl.returnStartPosition();
         GameObject startPiece = gridControl.returnBoardObject(startPos);
         startPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+        startPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
         animationBoard[(int)startPos.x, (int)startPos.y] = true;
     }
 
@@ -65,8 +65,9 @@ public class animationManager : MonoBehaviour
                             Debug.Log("DID NOT WIN!");
                         }
                     }else if(tempPiece.GetComponent<pipe>().getConnectedStatus()){
-                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                         animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
+                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+
                     }
                 }
             }
