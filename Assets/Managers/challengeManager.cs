@@ -109,6 +109,9 @@ public class challengeManager : MonoBehaviour
         this.setWaterDirtLevel(_challenge.waterData);
         this.setUpInventory(_challenge);
         this.setTheme(_challenge.theme);
+
+
+
         SceneManager.LoadScene(1);
     }
 
