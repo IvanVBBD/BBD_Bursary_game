@@ -14,8 +14,9 @@ public class pipe : MonoBehaviour
     [SerializeField] private Vector2[] allowedDirections;
     [SerializeField] private bool isBalanceSplitter = false;
     [SerializeField]private Vector2 cleanDirection;
-    [SerializeField]private Vector2 dirtyDirection;
+    [SerializeField] private Vector2 dirtyDirection;
     [SerializeField] private string pipeState;
+    [SerializeField] private bool connectedStatus = false;
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
@@ -71,5 +72,14 @@ public class pipe : MonoBehaviour
     }
 
     public string returnCreditType()=> creditsPipe;
+
+    public void setConnectedStatus(){
+        connectedStatus = true;
+    }
+
+    public bool getConnectedStatus(){
+        return connectedStatus;
+    }
+
 
 }

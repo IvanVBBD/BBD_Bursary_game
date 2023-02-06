@@ -36,12 +36,6 @@ public class pipeManager : MonoBehaviour
         }
     }
 
-    void addAnimationToList(GameObject currentPiece, int s){
-        animationControl.addToAnimate(currentPiece, s);
-        // Debug.Log("START ANIMATION");
-
-
-    }
 
      void tranverse(Vector2 change, Vector2 currentPos, waterSpace.waterObject water){
         Vector2 oldPos = currentPos;
@@ -82,22 +76,22 @@ public class pipeManager : MonoBehaviour
                             Vector2 dirtyDirection = combinedData[1];
                             if(water.waterDirtState <= 0 && cleanDirection == element){
                                 splitCounter++;
-                                addAnimationToList(currentPiece, splitCounter);
+                                currentPiece.GetComponent<pipe>().setConnectedStatus();
                                 Debug.Log($"SPLIT: {splitCounter}");
                                 tranverse(element,currentPos,water); // Go down clean split because water is clean
                             }else if(water.waterDirtState > 0 && dirtyDirection == element){
                                 splitCounter++;
-                                addAnimationToList(currentPiece, splitCounter);
+                                currentPiece.GetComponent<pipe>().setConnectedStatus();
                                 tranverse(element,currentPos,water); // Go down dirty split because water is dirty
                             }
                         }else{
                             splitCounter = splitCounter + localSplitCounter;
-                            addAnimationToList(currentPiece, splitCounter);
+                            currentPiece.GetComponent<pipe>().setConnectedStatus();
                             localSplitCounter++;
                             tranverse(element,currentPos,water); // No split
                         }
                     }else{
-                        addAnimationToList(currentPiece, splitCounter); // No split
+                        currentPiece.GetComponent<pipe>().setConnectedStatus();
                     }
                 }
             }
