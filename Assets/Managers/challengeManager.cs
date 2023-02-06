@@ -112,9 +112,17 @@ public class challengeManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.R)){
+            startChallenge();
+        }
+    }
+
+    
 
     public void startChallenge(){
-        setUpChallenge(GameObject.FindGameObjectWithTag("webManager").GetComponent<webManager>().fetch(url,"GET"));
+        //string level = GameObject.FindGameObjectWithTag("webManager").GetComponent<webManager>().GET(url);
+        GameObject.FindGameObjectWithTag("webManager").GetComponent<webManager>().levelRequest(url);
     }
 
 
