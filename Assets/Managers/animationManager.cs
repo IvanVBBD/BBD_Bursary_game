@@ -7,8 +7,6 @@ public class animationManager : MonoBehaviour
 {
     private List<List<Animator>> toAnimate = new List<List<Animator>>();
     private List<int> toAnimateCounter = new List<int>();
-    private int mySplitCounter = 0;
-    private bool firstAnimationCheck = false;
     gridManager gridControl;
     private int boardHeight;
     private Vector2 startPos;
@@ -78,6 +76,11 @@ public class animationManager : MonoBehaviour
                     if(tempPiece.gameObject.tag == "end"){
                         tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                         Debug.Log("END!");
+
+                        // Check if game was won
+                        // Trigger next scene 
+
+
                     }else if(tempPiece.GetComponent<pipe>().getConnectedStatus()){
                         tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                         animationBoard[(int)nextPos.x, (int)nextPos.y] = true;

@@ -49,7 +49,7 @@ public class pipeManager : MonoBehaviour
                 succCon = true;
             }
             if(GameObject.FindGameObjectWithTag("challengeManager")){
-                GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().startChallenge();
+                //GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().startChallenge();
             }
             return;
         }else if (currentPiece.gameObject.tag == "pipe"){
