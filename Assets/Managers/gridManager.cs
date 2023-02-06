@@ -177,4 +177,8 @@ public class gridManager : MonoBehaviour
     public Vector2 returnStartPosition(){
         return startPos;
     }
+
+    public int returnBoardHeight(){
+        return numTiles_y;
+    }
 }

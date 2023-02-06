@@ -10,7 +10,7 @@ public class pipeManager : MonoBehaviour
     private inventoryManager inventoryControl;
     private animationManager animationControl;
     private bool succCon = false;
-
+    private int splitCounter = 0;
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         waterControl = GameObject.FindGameObjectWithTag("waterManager").GetComponent<waterManager>();
@@ -28,6 +28,7 @@ public class pipeManager : MonoBehaviour
         // Debug.Log("Starting Trans");
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
         tranverse(Vector2.right,foundStart,water);
+        animationControl.transverseAnimations();
         if(succCon == true){
             Debug.Log("YAAAAS U WIN");
         }else{
@@ -35,9 +36,9 @@ public class pipeManager : MonoBehaviour
         }
     }
 
-    void startAnimation(GameObject currentPiece){
-        animationControl.addToAnimate(currentPiece);
-        Debug.Log("START ANIMATION");
+    void addAnimationToList(GameObject currentPiece, int s){
+        animationControl.addToAnimate(currentPiece, s);
+        // Debug.Log("START ANIMATION");
 
 
     }
@@ -66,13 +67,13 @@ public class pipeManager : MonoBehaviour
             Vector2 connectingPostion = Vector2.zero; // init
             foreach(Vector2 pointSet in connectingPoints){
                 if (new Vector2((int)(currentPos.x + pointSet.x),(int)(currentPos.y + pointSet.y)) == oldPos){
-
                     connectingPostion = pointSet;// new Vector2((int)(currentPos.x + pointSet.x),(int)(currentPos.y + pointSet.y));
                 }
             }
-
+            int localSplitCounter = 0;
             //This section deals with transversing out all possible ends of the pipe that is not the entry side
             foreach(Vector2 element in connectingPoints){
+                // Debug.Log($"LOCAL SPLIT COUNTER: {localSplitCounter}");
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     if(waterControl.canMoveDirection(element,water)){
                         if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
@@ -80,18 +81,23 @@ public class pipeManager : MonoBehaviour
                             Vector2 cleanDirection = combinedData[0];
                             Vector2 dirtyDirection = combinedData[1];
                             if(water.waterDirtState <= 0 && cleanDirection == element){
-                                startAnimation(currentPiece);
-                                tranverse(element,currentPos,water);
+                                splitCounter++;
+                                addAnimationToList(currentPiece, splitCounter);
+                                Debug.Log($"SPLIT: {splitCounter}");
+                                tranverse(element,currentPos,water); // Go down clean split because water is clean
                             }else if(water.waterDirtState > 0 && dirtyDirection == element){
-                                startAnimation(currentPiece);
-                                tranverse(element,currentPos,water);
+                                splitCounter++;
+                                addAnimationToList(currentPiece, splitCounter);
+                                tranverse(element,currentPos,water); // Go down dirty split because water is dirty
                             }
                         }else{
-                            startAnimation(currentPiece);
-                            tranverse(element,currentPos,water);
+                            splitCounter = splitCounter + localSplitCounter;
+                            addAnimationToList(currentPiece, splitCounter);
+                            localSplitCounter++;
+                            tranverse(element,currentPos,water); // No split
                         }
                     }else{
-                        startAnimation(currentPiece);
+                        addAnimationToList(currentPiece, splitCounter); // No split
                     }
                 }
             }

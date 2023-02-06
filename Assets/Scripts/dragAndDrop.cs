@@ -43,10 +43,7 @@ public class dragAndDrop : MonoBehaviour
     }
 
     public void setFirstPickup(){
-        Debug.Log($"DRAG: {drag}");
         drag = true;
         gridControl.setPickUpObject(this.gameObject);
-
-        Debug.Log("WHY");
     }
 }
