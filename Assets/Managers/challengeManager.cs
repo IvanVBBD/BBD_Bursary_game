@@ -32,6 +32,8 @@ public class challengeManager : MonoBehaviour
     inventorySpace.inventory currentInventory = new inventorySpace.inventory();
     Vector2 startPos, endPos;
 
+    const string url = "http://127.0.0.1:3002/bursar/requestchallenge";
+
     string theme;
     int waterDirtLevel = 0;
     
@@ -108,6 +110,11 @@ public class challengeManager : MonoBehaviour
         this.setUpInventory(_challenge);
         this.setTheme(_challenge.theme);
         SceneManager.LoadScene(1);
+    }
+
+
+    public void startChallenge(){
+        setUpChallenge(GameObject.FindGameObjectWithTag("webManager").GetComponent<webManager>().fetch(url,"GET"));
     }
 
 
