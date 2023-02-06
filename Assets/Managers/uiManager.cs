@@ -16,6 +16,8 @@ public class uiManager : MonoBehaviour
     [SerializeField] GameObject splitterPipeButton;
     [SerializeField] GameObject specialSplitterPipeButton;
 
+    [SerializeField] GameObject resetButton;
+
     [SerializeField] GameObject waterLevelLabel;
 
     inventoryManager inventoryControl;
