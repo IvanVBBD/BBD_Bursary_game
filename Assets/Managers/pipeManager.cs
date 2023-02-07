@@ -63,6 +63,12 @@ public class pipeManager : MonoBehaviour
             foreach(Vector2 element in connectingPoints){
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     if(waterControl.canMoveDirection(element,water)){
+
+
+
+
+
+
                         if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
                             Vector2[] combinedData = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
                             Vector2 cleanDirection = combinedData[0];

@@ -16,6 +16,7 @@ public class animationManager : MonoBehaviour
     }
 
     public void resetAnimations(){
+        Debug.Log("RESET");
         for(int x = 0; x < boardHeight + 4; x++){
             for(int y = 0; y < boardHeight; y++){
 
@@ -50,24 +51,45 @@ public class animationManager : MonoBehaviour
         else{
             connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
         }
+
+        Vector2 currentPos = currentPiece.gameObject.transform.position;
         foreach(Vector2 connectingPoint in connectingPoints){
-            Vector2 currentPos = currentPiece.gameObject.transform.position;
             Vector2 nextPos = currentPos + connectingPoint;
 
             if(animationBoard[(int)nextPos.x, (int)nextPos.y] == false){
-                GameObject tempPiece = gridControl.returnBoardObject(nextPos);
-                if(tempPiece != null){
-                    if(tempPiece.gameObject.tag == "end"){
+                GameObject nextPiece = gridControl.returnBoardObject(nextPos);
+                if(nextPiece != null){
+                    if(nextPiece.gameObject.tag == "end"){
                         if(pipeControl.getSuccCon()){
-                            tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                            nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                         }
                         else{
                             Debug.Log("DID NOT WIN!");
                         }
-                    }else if(tempPiece.GetComponent<pipe>().getConnectedStatus()){
-                        animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
-                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                    }else if(nextPiece.GetComponent<pipe>().getConnectedStatus()){
+                        Vector2[] nextConnectingPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
+                        bool connection = false;
+                        // Validating pipe connection section of algorithm
+                        foreach(Vector2 nextConnectingPoint in nextConnectingPoints){
+                            if((int)nextConnectingPoint.x + (int)connectingPoint.x == 0 && (int)nextConnectingPoint.y + (int)connectingPoint.y == 0){
+                                connection = true;
+                            }
+                        }
 
+                        if(connection){
+                            animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
+
+                            if(connectingPoint == Vector2.right){
+                                nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 0);
+                            }else if(connectingPoint == Vector2.left){
+                                nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 2);
+                            }else if(connectingPoint == Vector2.up){
+                                nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 3);
+                            }else if(connectingPoint == Vector2.down){
+                                nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 1);
+                            }
+                            nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                        }
                     }
                 }
             }

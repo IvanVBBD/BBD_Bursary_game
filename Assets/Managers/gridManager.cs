@@ -55,12 +55,12 @@ public class gridManager : MonoBehaviour
     }
 
     void moveCameraToGrid(){
-        float screenSize_x = Screen.width;
-        float screenSize_y = Screen.height;
-        float temp_x = screenSize_x/numTiles_x;
-        float temp_y = screenSize_y/numTiles_y;
-        Debug.Log($"SCREEN WIDTH: {screenSize_x}");
-        Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
+        // float screenSize_x = Screen.width;
+        // float screenSize_y = Screen.height;
+        // float temp_x = screenSize_x/numTiles_x;
+        // float temp_y = screenSize_y/numTiles_y;
+        // Debug.Log($"SCREEN WIDTH: {screenSize_x}");
+        // Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
         
         Camera.main.transform.position = new Vector3((float)(inventoryEnd)/2 -0.5f,(float)numTiles_y/2 +0.5f,-10f);
         Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 2.0f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )

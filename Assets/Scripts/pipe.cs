@@ -17,9 +17,13 @@ public class pipe : MonoBehaviour
     [SerializeField] private Vector2 dirtyDirection;
     [SerializeField] private string pipeState;
     [SerializeField] private bool connectedStatus = false;
+    private int orientation;
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
         challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
+        orientation = 0;
+        this.gameObject.GetComponentInChildren<Animator>().SetInteger("Orientation", orientation);
+
     }
 
     void rotate(){
@@ -44,6 +48,14 @@ public class pipe : MonoBehaviour
                 dirtyDirection = temp;
             }
             gameObject.transform.Rotate(0,0,-90);
+
+            orientation++;
+            if(orientation > 3){
+                orientation = 0;
+            }
+
+            this.gameObject.GetComponentInChildren<Animator>().SetInteger("Orientation", orientation);
+            Debug.Log($"ORIENTATION: {orientation}");
         }
     }
 
