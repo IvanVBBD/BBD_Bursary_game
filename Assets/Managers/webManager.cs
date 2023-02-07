@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Net;
 using System.Text;
-using System.Net.Http;  
-using System.Net.Http.Headers;
+using UnityEngine.Networking;
 
  struct requestWrapper
                 {
@@ -14,7 +12,6 @@ using System.Net.Http.Headers;
 public class webManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private static readonly HttpClient client = new HttpClient();
     public static webManager instance;
     challengeManager challengeControl;
     const string url = "http://127.0.0.1:3002/bursar/requestchallenge";
@@ -28,35 +25,39 @@ public class webManager : MonoBehaviour
         }
         challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
     }
-
-    public string GET(string url){
-        
-        HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(url);
-        myReq.Method = "GET";
-        WebResponse webResponse = myReq.GetResponse();
-        System.IO.Stream webStream = webResponse.GetResponseStream();
-        System.IO.StreamReader reader = new System.IO.StreamReader(webStream);
-        string data = reader.ReadToEnd();
-        reader.Close();
-        webStream.Close();
-        webResponse.Close();
-        return data;
-       
+    public void levelRequest(string url){
+        StartCoroutine(Upload(url));
     }
-    
 
-    public async void levelRequest(string url){
-            requestWrapper _requestWrapper = new requestWrapper();
-            statSpace.levelStats stats = collectStats();
-            _requestWrapper.ID = "IVAN";
-            _requestWrapper.timeTaken = stats.timeTaken;
-            _requestWrapper.mousePresses = stats.mousePresses;
-            _requestWrapper.pipeUsed = stats.pipeUsed;
-        var content = new StringContent(JsonUtility.ToJson(_requestWrapper), Encoding.UTF8,"application/json");
-        content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
-        var response = await client.PostAsync(url,content);
-        string responseString = await response.Content.ReadAsStringAsync();
-        challengeControl.setUpChallenge(responseString);
+    IEnumerator Upload(string url)
+    {
+        statSpace.levelStats stats = collectStats();
+        UnityWebRequest request = new UnityWebRequest(url,"POST");
+        request.SetRequestHeader("Content-Type","application/json");
+        requestWrapper _requestWrapper = new requestWrapper();
+        _requestWrapper.ID = "IVAN";
+        _requestWrapper.timeTaken = stats.timeTaken;
+        _requestWrapper.mousePresses = stats.mousePresses;
+        _requestWrapper.pipeUsed = stats.pipeUsed;
+        string jsonString = JsonUtility.ToJson(_requestWrapper);
+        byte[] rawJsonData = Encoding.UTF8.GetBytes(jsonString);
+        request.uploadHandler = new UploadHandlerRaw(rawJsonData);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+
+        switch(request.result){
+            case UnityWebRequest.Result.Success:
+            string response = request.downloadHandler.text;
+            Debug.Log("HOLY");
+            request.Dispose();
+            challengeControl.setUpChallenge(response);
+
+            break;
+            default:
+            Debug.Log("ayyy it break");
+            break;
+        }
+
 
     }
 
@@ -67,12 +68,5 @@ public class webManager : MonoBehaviour
         else{
             return new statSpace.levelStats();
         }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

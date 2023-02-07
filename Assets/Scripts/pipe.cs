@@ -89,9 +89,7 @@ public class pipe : MonoBehaviour
         connectedStatus = true;
     }
 
-    public bool getConnectedStatus(){
-        return connectedStatus;
-    }
+    public bool getConnectedStatus() => connectedStatus;
 
 
 }

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class gridManager : MonoBehaviour
@@ -87,20 +89,6 @@ public class gridManager : MonoBehaviour
         int max_x = numTiles_x + inventoryPadding + inventoryWidth;
         int min_y = 0;
         int max_y = numTiles_y - 2;
-
-        for(int x = min_x; x < max_x; x++){
-            for(int y = min_y; y < max_y; y++){
-                
-                GameObject spawnedTile = Instantiate(tile_inventory,new Vector3(x,y,0),Quaternion.identity);
-                spawnedTile.name = $"Tile - {x} , {y}";
-
-                int dirtChooser = Random.Range(0, 4);
-                SpriteRenderer sprRend = spawnedTile.GetComponent<SpriteRenderer>();
-                sprRend.sprite = Resources.Load<Sprite>($"Textures/DirtBlock_{dirtChooser}");
-                sprRend.drawMode = SpriteDrawMode.Sliced;
-                sprRend.size = new Vector2(1f, 1f);
-            }
-        }
         uiControl.setInventoryPositions(min_x, min_y, max_x, max_y);
 
     }
@@ -163,6 +151,10 @@ public class gridManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);   
                 Destroy(pieceSelected);
             }
+        }else{
+            string creditType = pieceSelected.GetComponent<pipe>().returnCreditType(); //crediting inventory
+            GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);   
+            Destroy(pieceSelected);
         }
         pieceSelected = null;
     }

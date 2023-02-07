@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class endTrigger : MonoBehaviour
 {
-    private challengeManager challengeControl;
+    private uiManager uiControl;
 
 
     void Awake(){
-        challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
+        uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
     }
 
     public void startNextChallenge(){    
         Debug.Log("Is this called?");  
-        challengeControl.startChallenge();
+        uiControl.toggleWinPanel();
     }
 
 }
