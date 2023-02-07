@@ -20,7 +20,11 @@ public class uiManager : MonoBehaviour
 
     [SerializeField] GameObject waterLevelLabel;
 
+
+    //PANEL SECTION OF CODE
     [SerializeField] GameObject winnerPannel;
+
+    [SerializeField] GameObject toolTipPanel;
 
     inventoryManager inventoryControl;
     [SerializeField] RectTransform canvas;
@@ -31,7 +35,6 @@ public class uiManager : MonoBehaviour
         inventoryControl = GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>();
         initButtonRT();
         setWaterLabel();
-        toggleWinPanel();
     }
 
     void initButtonRT(){
@@ -55,6 +58,20 @@ public class uiManager : MonoBehaviour
             winnerPannel.SetActive(true);
             break;
         }
+    }
+
+    public void enableToolTip(string _content){
+        toolTipPanel.SetActive(true);
+        toolTipPanel.GetComponentInChildren<TextMeshProUGUI>().text = _content;
+        Vector2 anchoredPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas,Input.mousePosition, Camera.main, out anchoredPos);
+        toolTipPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(anchoredPos.x,anchoredPos.y,-5f);
+
+        //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(Input.mousePosition.x,Input.mousePosition.y,-2);
+    }
+
+    public void disableToolTip(){
+        toolTipPanel.SetActive(false);
     }
 
     // Update is called once per frame
