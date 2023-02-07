@@ -23,8 +23,9 @@ public class toolTip : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler
      }
  
      public void OnPointerExit(PointerEventData eventData)
-     {
-         mouse_over = false;
+     {  if(mouse_over){
+        mouse_over = false;
          uiControl.disableToolTip();
+        }
      }
 }

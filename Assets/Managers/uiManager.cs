@@ -63,10 +63,9 @@ public class uiManager : MonoBehaviour
     public void enableToolTip(string _content){
         toolTipPanel.SetActive(true);
         toolTipPanel.GetComponentInChildren<TextMeshProUGUI>().text = _content;
-        Vector2 anchoredPos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas,Input.mousePosition, Camera.main, out anchoredPos);
-        toolTipPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(anchoredPos.x,anchoredPos.y,-5f);
-
+        //Vector2 anchoredPos;
+        //toolTipPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(anchoredPos.x,anchoredPos.y,-5f);
+        //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(toolTipPanel.GetComponent<RectTransform>().position.x,toolTipPanel.GetComponent<RectTransform>().position.y,-5f);
         //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(Input.mousePosition.x,Input.mousePosition.y,-2);
     }
 
