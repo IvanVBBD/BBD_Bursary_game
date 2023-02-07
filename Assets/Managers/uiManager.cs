@@ -20,6 +20,8 @@ public class uiManager : MonoBehaviour
 
     [SerializeField] GameObject waterLevelLabel;
 
+    [SerializeField] GameObject winnerPannel;
+
     inventoryManager inventoryControl;
     [SerializeField] RectTransform canvas;
     private RectTransform straightRT, bendyRT, filterRT, contaminatorRT, heaterRT, freezeRT, splitterRT, specialSplitterRT;
@@ -29,6 +31,7 @@ public class uiManager : MonoBehaviour
         inventoryControl = GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>();
         initButtonRT();
         setWaterLabel();
+        toggleWinPanel();
     }
 
     void initButtonRT(){
@@ -41,6 +44,17 @@ public class uiManager : MonoBehaviour
         buttonRT[5] = freezePipeButton.GetComponent<RectTransform>();
         buttonRT[6] = splitterPipeButton.GetComponent<RectTransform>();
         buttonRT[7] = specialSplitterPipeButton.GetComponent<RectTransform>();
+    }
+
+    public void toggleWinPanel(){
+        switch(winnerPannel.activeInHierarchy){
+            case true:
+            winnerPannel.SetActive(false);
+            break;
+            case false:
+            winnerPannel.SetActive(true);
+            break;
+        }
     }
 
     // Update is called once per frame
