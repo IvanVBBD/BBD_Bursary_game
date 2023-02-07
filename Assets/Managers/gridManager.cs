@@ -151,6 +151,10 @@ public class gridManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);   
                 Destroy(pieceSelected);
             }
+        }else{
+            string creditType = pieceSelected.GetComponent<pipe>().returnCreditType(); //crediting inventory
+            GameObject.FindGameObjectWithTag("inventoryManager").GetComponent<inventoryManager>().creditPipes(creditType);   
+            Destroy(pieceSelected);
         }
         pieceSelected = null;
     }

@@ -23,9 +23,17 @@ public class dragAndDrop : MonoBehaviour
             drag = true;
             canDrag = false;
             gridControl.setPickUpObject(this.gameObject);
+            SpriteRenderer[] renders = this.GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer currentRender in renders){
+                currentRender.sortingLayerName = "pickupLayer";
+            }
         }else if(drag){
             drag = false;
             canDrag = true;
+            SpriteRenderer[] renders = this.GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer currentRender in renders){
+                currentRender.sortingLayerName = "Pipes";
+            }
             gridControl.snapToGrid();
         }
     }

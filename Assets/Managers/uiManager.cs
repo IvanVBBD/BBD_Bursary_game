@@ -20,6 +20,12 @@ public class uiManager : MonoBehaviour
 
     [SerializeField] GameObject waterLevelLabel;
 
+
+    //PANEL SECTION OF CODE
+    [SerializeField] GameObject winnerPannel;
+
+    [SerializeField] GameObject toolTipPanel;
+
     inventoryManager inventoryControl;
     [SerializeField] RectTransform canvas;
     private RectTransform straightRT, bendyRT, filterRT, contaminatorRT, heaterRT, freezeRT, splitterRT, specialSplitterRT;
@@ -41,6 +47,30 @@ public class uiManager : MonoBehaviour
         buttonRT[5] = freezePipeButton.GetComponent<RectTransform>();
         buttonRT[6] = splitterPipeButton.GetComponent<RectTransform>();
         buttonRT[7] = specialSplitterPipeButton.GetComponent<RectTransform>();
+    }
+
+    public void toggleWinPanel(){
+        switch(winnerPannel.activeInHierarchy){
+            case true:
+            winnerPannel.SetActive(false);
+            break;
+            case false:
+            winnerPannel.SetActive(true);
+            break;
+        }
+    }
+
+    public void enableToolTip(string _content){
+        toolTipPanel.SetActive(true);
+        toolTipPanel.GetComponentInChildren<TextMeshProUGUI>().text = _content;
+        //Vector2 anchoredPos;
+        //toolTipPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(anchoredPos.x,anchoredPos.y,-5f);
+        //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(toolTipPanel.GetComponent<RectTransform>().position.x,toolTipPanel.GetComponent<RectTransform>().position.y,-5f);
+        //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(Input.mousePosition.x,Input.mousePosition.y,-2);
+    }
+
+    public void disableToolTip(){
+        toolTipPanel.SetActive(false);
     }
 
     // Update is called once per frame

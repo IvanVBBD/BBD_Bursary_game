@@ -16,6 +16,7 @@ TagManager:
   - animationManager
   - webManager
   - statManager
+  - soundManager
   layers:
   - Default
   - TransparentFX
@@ -58,4 +59,7 @@ TagManager:
     locked: 0
   - name: Pipes
     uniqueID: 1275837641
+    locked: 0
+  - name: toolTipLayer
+    uniqueID: 2028496243
     locked: 0
