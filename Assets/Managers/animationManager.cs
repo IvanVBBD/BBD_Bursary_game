@@ -63,7 +63,7 @@ public class animationManager : MonoBehaviour
                         animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
                         nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                     }
-                    else if(nextPiece.GetComponent<pipe>().getConnectedStatus()){
+                    else{
                         Vector2[] nextConnectingPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
                         bool connection = false;
                         // Validating pipe connection section of algorithm
@@ -86,6 +86,7 @@ public class animationManager : MonoBehaviour
                                 nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 1);
                             }
                             nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                            Debug.Log("WHY YOU NO TRIGGER");
                         }
                     }
                 }

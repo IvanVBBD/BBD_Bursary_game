@@ -57,8 +57,10 @@ public class waterManager : MonoBehaviour
                 case "FREEZE":
                     if(water.waterPhaseState == waterSpace.waterStates.WATER){
                         water.waterPhaseState = waterSpace.waterStates.ICE;
+                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
                     }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        water.waterPhaseState = waterSpace.waterStates.WATER;
+                        water.waterPhaseState = waterSpace.waterStates.WATER;                        
+                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
                     }else{
                         water.waterPhaseState = waterSpace.waterStates.ICE;
                     }
@@ -66,10 +68,14 @@ public class waterManager : MonoBehaviour
                 case "HEAT":
                     if(water.waterPhaseState == waterSpace.waterStates.WATER){
                         water.waterPhaseState = waterSpace.waterStates.STEAM;
+                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
+
                     }else if(water.waterPhaseState == waterSpace.waterStates.ICE){
                         water.waterPhaseState = waterSpace.waterStates.WATER;
                     }else{
                         water.waterPhaseState = waterSpace.waterStates.STEAM;
+                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
+
                     }
                 break;
                 case "FILTER":
