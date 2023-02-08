@@ -370,6 +370,7 @@ MonoBehaviour:
   cleanDirection: {x: 0, y: 0}
   dirtyDirection: {x: 0, y: 0}
   pipeState: NONE
+  connectedStatus: 0
 --- !u!114 &9125832520892538076
 MonoBehaviour:
   m_ObjectHideFlags: 0

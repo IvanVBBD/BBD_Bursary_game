@@ -12,8 +12,6 @@ public class animateTrigger : MonoBehaviour
     }
 
     public void animationEnd(){
-        int temp = this.gameObject.GetComponent<Animator>().GetInteger("SplitNumber");
-        Vector2 tempPos = this.gameObject.transform.position;        
         animationControl.triggerNextAnimations(this.gameObject.transform.parent.gameObject);
     }
 }

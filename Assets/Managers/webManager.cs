@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEngine.Networking;
+using System.Collections;
 
- struct requestWrapper
+struct requestWrapper
                 {
                     public string ID;
                     public float timeTaken;

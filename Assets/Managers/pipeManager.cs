@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class pipeManager : MonoBehaviour
@@ -18,7 +16,10 @@ public class pipeManager : MonoBehaviour
     }
 
     public void beginTrans(){
+        Debug.Log("BEGIN TRANS");
         succCon = false;
+        animationControl.resetAnimations();
+
         Vector2 foundStart = gridControl.returnStartPosition();
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
         tranverse(Vector2.right,foundStart,water);
@@ -48,7 +49,7 @@ public class pipeManager : MonoBehaviour
         }else if (currentPiece.gameObject.tag == "pipe"){
             // Get stuff off object and call transverse again
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
-            water = waterControl.alterWaterPhaseState(currentPiece.GetComponent<pipe>().returnPipeEffect(),water);
+            water = waterControl.alterWaterPhaseState(currentPiece, water);
 
             // Validating pipe connection section of algorithm
             Vector2 connectingPostion = Vector2.zero; // init
@@ -62,6 +63,12 @@ public class pipeManager : MonoBehaviour
             foreach(Vector2 element in connectingPoints){
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     if(waterControl.canMoveDirection(element,water)){
+
+
+
+
+
+
                         if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
                             Vector2[] combinedData = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
                             Vector2 cleanDirection = combinedData[0];
@@ -77,8 +84,6 @@ public class pipeManager : MonoBehaviour
                             currentPiece.GetComponent<pipe>().setConnectedStatus();
                             tranverse(element,currentPos,water); // No split
                         }
-                    }else{
-                        currentPiece.GetComponent<pipe>().setConnectedStatus();
                     }
                 }
             }
@@ -97,5 +102,9 @@ public class pipeManager : MonoBehaviour
             currentPipe.GetComponent<dragAndDrop>().setFirstPickup();
             //You now have reference to the object that spawns;
        }
+    }
+
+    public bool getSuccCon(){
+        return succCon;
     }
 }
