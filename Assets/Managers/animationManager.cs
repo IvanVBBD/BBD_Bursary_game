@@ -19,14 +19,10 @@ public class animationManager : MonoBehaviour
         Debug.Log("RESET");
         for(int x = 0; x < boardHeight + 4; x++){
             for(int y = 0; y < boardHeight; y++){
-
-                if(animationBoard[(int)x, (int)y]){
-                    GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
-                    if(tempPiece != null){
-                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
-                        tempPiece.GetComponentInChildren<Animator>().ResetTrigger("StartFlow");
-                    }
-                    animationBoard[(int)x, (int)y] = false;
+                animationBoard[(int)x, (int)y] = false;
+                GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
+                if(tempPiece != null){
+                    tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
                 }
             }
         }
@@ -87,7 +83,6 @@ public class animationManager : MonoBehaviour
                                 nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 1);
                             }
                             nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
-                            Debug.Log("WHY YOU NO TRIGGER");
                         }
                     }
                 }

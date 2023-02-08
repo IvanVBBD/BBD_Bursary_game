@@ -16,7 +16,7 @@ public class pipeManager : MonoBehaviour
     }
 
     public void beginTrans(){
-        Debug.Log("BEGIN TRANS");
+        // Debug.Log("BEGIN TRANS");
         succCon = false;
         animationControl.resetAnimations();
 

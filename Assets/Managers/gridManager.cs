@@ -11,7 +11,7 @@ public class gridManager : MonoBehaviour
     private const int maxNumTiles_y = 16;
     private const int minNumTiles_y = 12;
     private int inventoryWidth = 2;
-    private int inventoryPadding = 1;
+    private int inventoryPadding = 2;
     private int inventoryStart, inventoryEnd;
     [SerializeField] private GameObject tile;
     [SerializeField] private GameObject tile_inventory;
@@ -86,7 +86,7 @@ public class gridManager : MonoBehaviour
         int min_x = numTiles_x + inventoryPadding;
         int max_x = numTiles_x + inventoryPadding + inventoryWidth;
         int min_y = 0;
-        int max_y = numTiles_y - 2;
+        int max_y = numTiles_y - 3; // Magic number??
         uiControl.setInventoryPositions(min_x, min_y, max_x, max_y);
 
     }

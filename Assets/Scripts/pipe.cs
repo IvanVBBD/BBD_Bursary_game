@@ -55,7 +55,6 @@ public class pipe : MonoBehaviour
             }
 
             this.gameObject.GetComponentInChildren<Animator>().SetInteger("Orientation", orientation);
-            Debug.Log($"ORIENTATION: {orientation}");
         }
     }
 
