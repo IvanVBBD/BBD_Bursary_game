@@ -29,6 +29,15 @@ public class gridManager : MonoBehaviour
     }
     
     void Start(){
+        
+        constantsInit();
+        resetGrid();
+        generateGrid();
+        moveCameraToGrid();
+        generateInventoryGrid();
+    }
+
+    void constantsInit(){
         if(numTiles_y < minNumTiles_y){
             numTiles_y = minNumTiles_y;
         }
@@ -41,11 +50,6 @@ public class gridManager : MonoBehaviour
 
         inventoryStart = numTiles_x + inventoryPadding;
         inventoryEnd = numTiles_x + inventoryPadding + inventoryWidth;
-
-        resetGrid();
-        generateGrid();
-        moveCameraToGrid();
-        generateInventoryGrid();
     }
 
     void addStartEndPipes(){
@@ -57,13 +61,6 @@ public class gridManager : MonoBehaviour
     }
 
     void moveCameraToGrid(){
-        // float screenSize_x = Screen.width;
-        // float screenSize_y = Screen.height;
-        // float temp_x = screenSize_x/numTiles_x;
-        // float temp_y = screenSize_y/numTiles_y;
-        // Debug.Log($"SCREEN WIDTH: {screenSize_x}");
-        // Debug.Log($"SCREEN HEIGHT: {screenSize_y}");
-        
         Camera.main.transform.position = new Vector3((float)(inventoryEnd)/2 -0.5f,(float)numTiles_y/2 +0.5f,-10f);
         Camera.main.orthographicSize = ((float)(numTiles_y/2.0f + 2.0f)); //TAKE CARE OF THESE MAGIC NUMBERS :( )
     }
@@ -73,12 +70,13 @@ public class gridManager : MonoBehaviour
             for(int y = 0; y < numTiles_y; y++){
                 GameObject spawnedTile = Instantiate(tile,new Vector3(x,y,0),Quaternion.identity);
                 spawnedTile.name = $"Tile - {x} , {y}";
-
-                int dirtChooser = Random.Range(0, 4);
-                SpriteRenderer sprRend = spawnedTile.GetComponent<SpriteRenderer>();
-                sprRend.sprite = Resources.Load<Sprite>($"Textures/DirtBlock_{dirtChooser}");
-                sprRend.drawMode = SpriteDrawMode.Sliced;
-                sprRend.size = new Vector2(1f, 1f);
+                bool isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
+                spawnedTile.GetComponent<tile>().init(isOffset);
+                //int dirtChooser = Random.Range(0, 4);
+                //SpriteRenderer sprRend = spawnedTile.GetComponent<SpriteRenderer>();
+                //sprRend.sprite = Resources.Load<Sprite>($"Textures/DirtBlock_{dirtChooser}");
+                //sprRend.drawMode = SpriteDrawMode.Sliced;
+                //sprRend.size = new Vector2(1f, 1f);
             }
         }
         addStartEndPipes();
