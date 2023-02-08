@@ -24,6 +24,7 @@ public class animationManager : MonoBehaviour
                     GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
                     if(tempPiece != null){
                         tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
+                        tempPiece.GetComponentInChildren<Animator>().ResetTrigger("StartFlow");
                     }
                     animationBoard[(int)x, (int)y] = false;
                 }
