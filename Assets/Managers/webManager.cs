@@ -9,6 +9,7 @@ struct requestWrapper
                     public float timeTaken;
                     public int mousePresses;
                     public int pipeUsed;
+                    public string stateOfLoad;
                 }
 public class webManager : MonoBehaviour
 {
