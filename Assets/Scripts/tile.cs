@@ -5,10 +5,10 @@ using UnityEngine;
 public class tile : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Color baseColor = Color.white;
-    private Color offSetColor = Color.grey;
+    [SerializeField] private Color baseColor;
+    [SerializeField] private Color offSetColor;
 
-    private Color selectedColor = Color.white;
+    private Color selectedColor;
 
     private SpriteRenderer gfx;
 

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -107,9 +109,6 @@ public class challengeManager : MonoBehaviour
         this.setWaterDirtLevel(_challenge.waterData);
         this.setUpInventory(_challenge);
         this.setTheme(_challenge.theme);
-
-
-
         SceneManager.LoadScene(1);
     }
 
