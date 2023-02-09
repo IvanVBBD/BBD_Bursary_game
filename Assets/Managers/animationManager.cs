@@ -23,8 +23,10 @@ public class animationManager : MonoBehaviour
                 GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
                 if(tempPiece != null){
                     tempPiece.GetComponentInChildren<Animator>().ResetTrigger("StartFlow");
-                    tempPiece.GetComponentInChildren<Animator>().ResetTrigger("White");
-                    tempPiece.GetComponentInChildren<Animator>().ResetTrigger("Blue");
+                    //tempPiece.GetComponentInChildren<Animator>().ResetTrigger("White");
+                    //tempPiece.GetComponentInChildren<Animator>().ResetTrigger("Blue");
+                    tempPiece.GetComponentInChildren<Animator>().SetInteger("State",1);
+                    tempPiece.GetComponentInChildren<Animator>().SetInteger("Balance",0);
                     tempPiece.GetComponentInChildren<Animator>().SetInteger("Orientation",0);
                     tempPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection",0);
                     tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
@@ -36,13 +38,13 @@ public class animationManager : MonoBehaviour
 
         startPos = gridControl.returnStartPosition();
         GameObject startPiece = gridControl.returnBoardObject(startPos);
-        // startPiece.GetComponentInChildren<Animator>().ResetTrigger("StartFlow");
-        // startPiece.GetComponentInChildren<Animator>().ResetTrigger("White");
-        // startPiece.GetComponentInChildren<Animator>().ResetTrigger("Blue");
-        // startPiece.GetComponentInChildren<Animator>().SetInteger("Orientation",0);
-        // startPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection",0);
-        // startPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
-        // startPiece.GetComponentInChildren<Animator>().ResetTrigger("Reset");
+        startPiece.GetComponentInChildren<Animator>().ResetTrigger("StartFlow");
+        startPiece.GetComponentInChildren<Animator>().ResetTrigger("White");
+        startPiece.GetComponentInChildren<Animator>().ResetTrigger("Blue");
+        startPiece.GetComponentInChildren<Animator>().SetInteger("Orientation",0);
+        startPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection",0);
+        startPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
+        startPiece.GetComponentInChildren<Animator>().ResetTrigger("Reset");
     }
 
     void resetPieceAnimation(GameObject piece){
@@ -58,7 +60,8 @@ public class animationManager : MonoBehaviour
         GameObject startPiece = gridControl.returnBoardObject(startPos);
 
         startPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
-        startPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
+        startPiece.GetComponentInChildren<Animator>().SetInteger("InputState", 1);
+        startPiece.GetComponentInChildren<Animator>().SetInteger("OutputState", 1);
         animationBoard[(int)startPos.x, (int)startPos.y] = true;
 
     }
@@ -82,12 +85,14 @@ public class animationManager : MonoBehaviour
             GameObject nextPiece = gridControl.returnBoardObject(nextPos);
             if(nextPiece != null){
                 if(nextPiece.gameObject.tag == "end"){
+                    //nextPiece.GetComponentInChildren<Animator>().SetInteger("InputState", 1); // Need to check for actual state
                     nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+
                 }
                 else if(nextPiece.gameObject.tag == "pipe"){
                     Vector2[] nextConnectingPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
                     waterSpace.waterObject water = new waterSpace.waterObject();
-                    switch(currentPiece.GetComponentInChildren<Animator>().GetInteger("State")){
+                    switch(currentPiece.GetComponentInChildren<Animator>().GetInteger("OutputState")){
                         case 0:
                         water.waterPhaseState = waterSpace.waterStates.ICE;
                         break;
@@ -102,13 +107,13 @@ public class animationManager : MonoBehaviour
                     water = waterControl.alterWaterPhaseState(nextPiece, water);
                     switch(water.waterPhaseState){
                         case waterSpace.waterStates.ICE:
-                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",0);
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("OutputState",0);
                         break;
                         case waterSpace.waterStates.WATER:
-                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",1);
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("OutputState",1);
                         break;
                         case waterSpace.waterStates.STEAM:
-                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",2);
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("OutputState",2);
                         break;
                     }
                     nextPiece.GetComponentInChildren<Animator>().SetInteger("Balance",(int)water.waterDirtState);
@@ -152,6 +157,7 @@ public class animationManager : MonoBehaviour
                         }else if(connectingPoint == Vector2.down){
                             nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 1);
                         }
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("InputState",currentPiece.GetComponentInChildren<Animator>().GetInteger("OutputState"));
                         nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                         }
 

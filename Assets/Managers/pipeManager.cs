@@ -48,13 +48,13 @@ public class pipeManager : MonoBehaviour
             Debug.Log(water.waterPhaseState);
             if(water.waterPhaseState == waterSpace.waterStates.WATER)
             {
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
                 if(Mathf.Abs(water.waterDirtState) == 0f){
                     succCon = true;
 
                 }
             }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
             }
 
             return;
