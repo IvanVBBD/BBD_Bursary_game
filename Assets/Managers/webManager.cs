@@ -16,7 +16,7 @@ public class webManager : MonoBehaviour
     // Start is called before the first frame update
     public static webManager instance;
     challengeManager challengeControl;
-    const string url = "http://127.0.0.1:3002/bursar/requestchallenge";
+    const string url = "http://127.0.0.1:3002/assessment/requestchallenge";
    
     void Awake(){
         if(instance != null){
