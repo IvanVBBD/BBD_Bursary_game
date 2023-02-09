@@ -19,13 +19,10 @@ public class animationManager : MonoBehaviour
         Debug.Log("RESET");
         for(int x = 0; x < boardHeight + 4; x++){
             for(int y = 0; y < boardHeight; y++){
-
-                if(animationBoard[(int)x, (int)y]){
-                    GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
-                    if(tempPiece != null){
-                        tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
-                    }
-                    animationBoard[(int)x, (int)y] = false;
+                animationBoard[(int)x, (int)y] = false;
+                GameObject tempPiece = gridControl.returnBoardObject(new Vector2(x, y));
+                if(tempPiece != null){
+                    tempPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
                 }
             }
         }
@@ -60,13 +57,10 @@ public class animationManager : MonoBehaviour
                 GameObject nextPiece = gridControl.returnBoardObject(nextPos);
                 if(nextPiece != null){
                     if(nextPiece.gameObject.tag == "end"){
-                        if(pipeControl.getSuccCon()){
-                            nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
-                        }
-                        else{
-                            Debug.Log("DID NOT WIN!");
-                        }
-                    }else if(nextPiece.GetComponent<pipe>().getConnectedStatus()){
+                        animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
+                        nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                    }
+                    else{
                         Vector2[] nextConnectingPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
                         bool connection = false;
                         // Validating pipe connection section of algorithm

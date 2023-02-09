@@ -16,7 +16,7 @@ public class pipeManager : MonoBehaviour
     }
 
     public void beginTrans(){
-        Debug.Log("BEGIN TRANS");
+        // Debug.Log("BEGIN TRANS");
         succCon = false;
         animationControl.resetAnimations();
 
@@ -38,14 +38,18 @@ public class pipeManager : MonoBehaviour
         if(currentPiece == null){
             return;
         }else if (currentPiece.gameObject.tag == "end"){
-            if(water.waterDirtState == 0f && water.waterPhaseState == waterSpace.waterStates.WATER){
-                succCon = true;
+            if(water.waterPhaseState == waterSpace.waterStates.WATER)
+            {
+                currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                if(water.waterDirtState == 0f){
+                    succCon = true;
+                }
+            }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
+                currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
             }
-            if(GameObject.FindGameObjectWithTag("challengeManager")){
-                // This has been moved to the end piece's animation event trigger 
-                // GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().startChallenge();
-            }
+
             return;
+
         }else if (currentPiece.gameObject.tag == "pipe"){
             // Get stuff off object and call transverse again
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();

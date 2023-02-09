@@ -22,7 +22,7 @@ public class uiManager : MonoBehaviour
     //PANEL SECTION OF CODE
     [SerializeField] GameObject winnerPannel;
 
-    [SerializeField] GameObject toolTipPanel;
+    [SerializeField] GameObject toolTip;
 
     inventoryManager inventoryControl;
     [SerializeField] RectTransform canvas;
@@ -59,8 +59,8 @@ public class uiManager : MonoBehaviour
     }
 
     public void enableToolTip(string _content){
-        toolTipPanel.SetActive(true);
-        toolTipPanel.GetComponentInChildren<TextMeshProUGUI>().text = _content;
+        toolTip.SetActive(true);
+        toolTip.GetComponent<TextMeshProUGUI>().text = _content;
         //Vector2 anchoredPos;
         //toolTipPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(anchoredPos.x,anchoredPos.y,-5f);
         //toolTipPanel.GetComponent<RectTransform>().position = new Vector3(toolTipPanel.GetComponent<RectTransform>().position.x,toolTipPanel.GetComponent<RectTransform>().position.y,-5f);
@@ -68,13 +68,13 @@ public class uiManager : MonoBehaviour
     }
 
     public void disableToolTip(){
-        toolTipPanel.SetActive(false);
+        toolTip.SetActive(false);
     }
 
     // Update is called once per frame
 
     void setWaterLabel(){
-        waterLevelLabel.GetComponent<TextMeshProUGUI>().text = "Balance: " + GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().returnWaterDirtLevel().ToString();
+        waterLevelLabel.GetComponent<TextMeshProUGUI>().text = "Start balance:\n" + GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>().returnWaterDirtLevel().ToString();
     }
 
     void Update()
@@ -144,7 +144,7 @@ public class uiManager : MonoBehaviour
         inventoryStart_y = yStart;
         inventoryEnd_x = xEnd;
         inventoryEnd_y = yEnd;
-        setPipeButtonPosition(); // This does not work :( 
+        setPipeButtonPosition();
     }
 
     public void setPipeButtonPosition(){

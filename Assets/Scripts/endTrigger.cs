@@ -5,15 +5,21 @@ using UnityEngine;
 public class endTrigger : MonoBehaviour
 {
     private uiManager uiControl;
+    private pipeManager pipeControl;
 
 
     void Awake(){
         uiControl = GameObject.FindGameObjectWithTag("uiManager").GetComponent<uiManager>();
+        pipeControl = GameObject.FindGameObjectWithTag("pipeManager").GetComponent<pipeManager>();
     }
 
     public void startNextChallenge(){    
-        Debug.Log("Is this called?");  
-        uiControl.toggleWinPanel();
+        if(pipeControl.getSuccCon()){
+            uiControl.toggleWinPanel();
+        }
+        else{
+            Debug.Log("ANIMATION END TRIGGERED BUT WIN CON NOT MET");
+        }
     }
 
 }

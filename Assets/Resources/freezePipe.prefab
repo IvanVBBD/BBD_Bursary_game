@@ -168,6 +168,7 @@ MonoBehaviour:
   cleanDirection: {x: 0, y: 0}
   dirtyDirection: {x: 0, y: 0}
   pipeState: FREEZE
+  connectedStatus: 0
 --- !u!114 &4894525284080097094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ Animator:
   m_GameObject: {fileID: 5361331923161884467}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: be778c3e0a5e18341ab153c60db52d93, type: 2}
+  m_Controller: {fileID: 9100000, guid: 401bba12e685266448f41a20c6dccd92, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
