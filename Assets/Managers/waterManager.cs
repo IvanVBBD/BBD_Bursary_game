@@ -48,11 +48,6 @@ public class waterManager : MonoBehaviour
           string condition = currentPipe.GetComponent<pipe>().returnPipeEffect();
             switch(condition){
                 case "NONE":
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                 break;
                 case "FREEZE":
                     if(water.waterPhaseState == waterSpace.waterStates.WATER){
@@ -79,21 +74,9 @@ public class waterManager : MonoBehaviour
                     }
                 break;
                 case "FILTER":
-                    // This needs a rethink - should the steam/water be coloured 
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                       // currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                     water.waterDirtState -= 1;
                 break;
                 case "CONTAMINATOR":
-                    // This needs a rethink - should the steam/water be coloured 
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                     water.waterDirtState += 1;
                 break;
             }
