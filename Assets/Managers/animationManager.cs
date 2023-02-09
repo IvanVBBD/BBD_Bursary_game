@@ -65,6 +65,7 @@ public class animationManager : MonoBehaviour
 
     public void triggerNextAnimations(GameObject currentPiece){
         Vector2[] connectingPoints;
+        
         //resetPieceAnimation(currentPiece);
         if(currentPiece.gameObject.tag == "start"){
             connectingPoints = new[] { Vector2.right };       
@@ -78,42 +79,69 @@ public class animationManager : MonoBehaviour
         Vector2 currentPos = currentPiece.gameObject.transform.position;
         foreach(Vector2 connectingPoint in connectingPoints){
             Vector2 nextPos = currentPos + connectingPoint;
-
             GameObject nextPiece = gridControl.returnBoardObject(nextPos);
             if(nextPiece != null){
                 if(nextPiece.gameObject.tag == "end"){
-                    animationBoard[(int)nextPos.x, (int)nextPos.y] = true;
                     nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
                 }
-                else if(nextPiece.gameObject.tag != "start"){
+                else if(nextPiece.gameObject.tag == "pipe"){
                     Vector2[] nextConnectingPoints = nextPiece.GetComponent<pipe>().returnPipeDirections();
+                    waterSpace.waterObject water = new waterSpace.waterObject();
+                    switch(currentPiece.GetComponentInChildren<Animator>().GetInteger("State")){
+                        case 0:
+                        water.waterPhaseState = waterSpace.waterStates.ICE;
+                        break;
+                        case 1:
+                        water.waterPhaseState = waterSpace.waterStates.WATER;
+                        break;
+                        case 2:
+                        water.waterPhaseState = waterSpace.waterStates.STEAM;
+                        break;
+                    }
+                    water.waterDirtState = currentPiece.GetComponentInChildren<Animator>().GetInteger("Balance");
+                    water = waterControl.alterWaterPhaseState(nextPiece, water);
+                    switch(water.waterPhaseState){
+                        case waterSpace.waterStates.ICE:
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",0);
+                        break;
+                        case waterSpace.waterStates.WATER:
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",1);
+                        break;
+                        case waterSpace.waterStates.STEAM:
+                        nextPiece.GetComponentInChildren<Animator>().SetInteger("State",2);
+                        break;
+                    }
+                    nextPiece.GetComponentInChildren<Animator>().SetInteger("Balance",(int)water.waterDirtState);
                     bool connection = false;
                     // Validating pipe connection section of algorithm
+                    Vector2 connectionPostion = Vector2.zero;
+                    bool isConnected = false;
                     foreach(Vector2 nextConnectingPoint in nextConnectingPoints){
                         if((int)nextConnectingPoint.x + (int)connectingPoint.x == 0 && (int)nextConnectingPoint.y + (int)connectingPoint.y == 0){
-                            if(nextPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
-                                Vector2[] combinedData = nextPiece.GetComponent<pipe>().returnPipeBalanceDirections();
-                                Vector2 cleanDirection = combinedData[0];
-                                Vector2 dirtyDirection = combinedData[1];
-
-                                Debug.Log($"CLEAN DIRECTION: {cleanDirection}");
-                                Debug.Log($"DIRTY DIRECTION: {dirtyDirection}");
-                                Debug.Log($"NEXT CONNECTION: {nextConnectingPoint}");
-                                Debug.Log($"PREVIOUS CONNECTION: {connectingPoint}");
-                                if(cleanDirection == nextConnectingPoint){
-                                    connection = false;
-                                }else if(dirtyDirection == nextConnectingPoint){
-                                    connection = false;
-                                }else{
-                                    connection = true;
-                                }
-                            }else{
-                                connection = true;
-                            }
-                            
+                            connectionPostion = nextConnectingPoint;
+                            isConnected = true;
                         }
                     }
-                    if(connection){
+                    foreach(Vector2 nextConnectingPoint in nextConnectingPoints){
+                        if(isConnected && nextConnectingPoint != connectionPostion && connectionPostion != Vector2.zero){
+                            if(waterControl.canMoveDirection(nextConnectingPoint,water)){
+                                    if(nextPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
+                                        Vector2[] combinedData = nextPiece.GetComponent<pipe>().returnPipeBalanceDirections();
+                                        Vector2 cleanDirection = combinedData[0];
+                                        Vector2 dirtyDirection = combinedData[1];
+                                        if(water.waterDirtState <= 0 && cleanDirection == nextConnectingPoint){
+                                            connection = true;
+                                             
+                                        }else if(water.waterDirtState > 0 && dirtyDirection == nextConnectingPoint){
+                                            connection = true;
+                                        }
+                                    }else{
+                                        connection = true;
+                                    }
+                                }
+                        }
+
+                        if(connection){
                         nextPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
                         if(connectingPoint == Vector2.right){
                             nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 0);
@@ -125,13 +153,12 @@ public class animationManager : MonoBehaviour
                             nextPiece.GetComponentInChildren<Animator>().SetInteger("InputDirection", 1);
                         }
                         nextPiece.GetComponentInChildren<Animator>().SetTrigger("StartFlow");
+                        }
+
                     }
-                }
-            }
-            else{
-                // JESSE TO DO: 
-                // Check if need to change state/type of water and restart the animation loop
-            }    
+                                   
+                }       
+            }                           
         }
     }
 }
