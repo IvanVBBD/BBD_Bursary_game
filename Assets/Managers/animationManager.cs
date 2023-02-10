@@ -95,6 +95,19 @@ public class animationManager : MonoBehaviour
             if((connectingPoint.x + inputFlowDirection.x == 0) && (connectingPoint.y + inputFlowDirection.y == 0)){
                 continue;
             }
+            if(currentPiece.GetComponent<pipe>()){
+                if(currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
+                    int balance = currentPiece.GetComponentInChildren<Animator>().GetInteger("Balance");
+                    Vector2 [] specialDirections = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
+                    Vector2 cleanDirection = specialDirections[0];
+                    Vector2 dirtyDirection = specialDirections[1];
+                    if(balance <= 0 && connectingPoint != cleanDirection){
+                        continue;
+                    }else if(balance > 0 && connectingPoint != dirtyDirection){
+                        continue;
+                    }
+                }
+            }
             Vector2 nextPos = currentPos + connectingPoint;
             GameObject nextPiece = gridControl.returnBoardObject(nextPos);
             if(nextPiece == null || nextPiece.gameObject.tag == "start"){
@@ -171,11 +184,9 @@ public class animationManager : MonoBehaviour
                                         }else if(water.waterDirtState > 0 && dirtyDirection == nextConnectingPoint){
                                             connection = true;
                                            Debug.Log("we dirty");
-                                            
                                         }
                                     }else{
                                         connection = true;
-                                       
                                     }
                                     if(connection){
                                         nextPiece.GetComponentInChildren<Animator>().SetTrigger("Reset");
