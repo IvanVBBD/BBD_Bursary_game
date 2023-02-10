@@ -77,7 +77,7 @@ public class inventoryManager : MonoBehaviour
                 if(currentInventory.specialSplitterPipe > 0){
                     currentInventory.specialSplitterPipe--;
                     uiControl.updatePipeNumbersUI(currentInventory);
-                    return Instantiate(Resources.Load<GameObject>("specialSplitter"),mouseLocalPos3 ,Quaternion.identity);
+                    return Instantiate(Resources.Load<GameObject>("specialSplitterPipe"),mouseLocalPos3 ,Quaternion.identity);
                 }
                
             break;

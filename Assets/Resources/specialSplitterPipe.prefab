@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 98830665443198808}
   - component: {fileID: 98830665443198811}
   m_Layer: 0
-  m_Name: specialSplitter
+  m_Name: specialSplitterPipe
   m_TagString: pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
