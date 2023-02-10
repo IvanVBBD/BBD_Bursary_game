@@ -23,7 +23,7 @@ public class pipeManager : MonoBehaviour
         // Debug.Log("BEGIN TRANS");
         correctPath = new List<GameObject>();
         succCon = false;
-        animationControl.resetAnimations();
+        //animationControl.resetAnimations();
         Vector2 foundStart = gridControl.returnStartPosition();
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
         List<GameObject> path = new List<GameObject>();
@@ -43,18 +43,18 @@ public class pipeManager : MonoBehaviour
         if(currentPiece == null){
             return;
         }else if (currentPiece.gameObject.tag == "end"){
-            Debug.Log("WHAT WE HAVE AT END");
-            Debug.Log(water.waterDirtState);
-            Debug.Log(water.waterPhaseState);
+            // Debug.Log("WHAT WE HAVE AT END");
+            // Debug.Log(water.waterDirtState);
+            // Debug.Log(water.waterPhaseState);
             if(water.waterPhaseState == waterSpace.waterStates.WATER)
             {
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
                 if(Mathf.Abs(water.waterDirtState) == 0f){
                     succCon = true;
 
                 }
             }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
             }
 
             return;
@@ -105,6 +105,7 @@ public class pipeManager : MonoBehaviour
     //Spawn pipe section
     public void spawnPipe(string type){
         GameObject currentPipe = inventoryControl.requestPipeSpawn(type);
+        currentPipe.name = currentPipe.name + "-" + GameObject.FindGameObjectsWithTag("pipe").Length.ToString();
         if(currentPipe == null){
             Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
         }else{
