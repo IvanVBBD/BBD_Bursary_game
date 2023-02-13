@@ -198,9 +198,9 @@ public class animationManager : MonoBehaviour
                                     }else if(nextConnectingPoints.Length > 2 && nextPiece.GetComponent<pipe>().returnIsNormalSplitter()){
                                         Vector2 outputDirection = nextPiece.GetComponent<pipe>().returnNormalOutput();
                                         if(outputDirection == nextConnectingPoint){
-                                            connection = false;
-                                        }else{
                                             connection = true;
+                                        }else{
+                                            connection = false;
                                         }
                                     }else{
                                         connection = true;
