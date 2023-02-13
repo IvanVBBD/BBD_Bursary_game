@@ -17,6 +17,9 @@ public class pipe : MonoBehaviour
     [SerializeField] private bool isBalanceSplitter = false;
     [SerializeField]private Vector2 cleanDirection;
     [SerializeField] private Vector2 dirtyDirection;
+
+    [SerializeField] private bool isNormalSplitter = false;
+    [SerializeField] private Vector2 outputSplitter;
     [SerializeField] private string pipeState;
     [SerializeField] private bool connectedStatus = false;
     private int orientation;
@@ -49,6 +52,11 @@ public class pipe : MonoBehaviour
                 temp.x = Mathf.RoundToInt(temp.x);
                 temp.y = Mathf.RoundToInt(temp.y);
                 dirtyDirection = temp;
+            }else if(isNormalSplitter){
+                Vector2 temp = rotate(outputSplitter,-1f * Mathf.PI/ 2);
+                temp.x = Mathf.RoundToInt(temp.x);
+                temp.y = Mathf.RoundToInt(temp.y);
+                outputSplitter = temp;
             }
             gameObject.transform.Rotate(0,0,-90);
 
@@ -77,6 +85,10 @@ public class pipe : MonoBehaviour
     public string returnPipeEffect() => pipeState;
 
     public bool returnIsBalanceSplitter() => isBalanceSplitter;
+
+    public bool returnIsNormalSplitter() => isNormalSplitter;
+
+    public Vector2 returnNormalOutput() => outputSplitter;
  
     public Vector2[] returnPipeDirections() => allowedDirections;
 

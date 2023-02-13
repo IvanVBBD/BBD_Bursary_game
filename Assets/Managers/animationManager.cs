@@ -95,6 +95,8 @@ public class animationManager : MonoBehaviour
             if((connectingPoint.x + inputFlowDirection.x == 0) && (connectingPoint.y + inputFlowDirection.y == 0)){
                 continue;
             }
+
+            //Logic section to deal with output flows of multi dimensioal pipe
             if(currentPiece.GetComponent<pipe>()){
                 if(currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
                     int balance = currentPiece.GetComponentInChildren<Animator>().GetInteger("Balance");
@@ -104,6 +106,13 @@ public class animationManager : MonoBehaviour
                     if(balance <= 0 && connectingPoint != cleanDirection){
                         continue;
                     }else if(balance > 0 && connectingPoint != dirtyDirection){
+                        continue;
+                    }
+                }else if(currentPiece.GetComponent<pipe>().returnIsNormalSplitter()){
+                    Vector2 outputDir = currentPiece.GetComponent<pipe>().returnNormalOutput();
+                    if(connectingPoint == outputDir){
+                        
+                    }else{
                         continue;
                     }
                 }
@@ -177,13 +186,21 @@ public class animationManager : MonoBehaviour
                                         Vector2[] combinedData = nextPiece.GetComponent<pipe>().returnPipeBalanceDirections();
                                         Vector2 cleanDirection = combinedData[0];
                                         Vector2 dirtyDirection = combinedData[1];
-                                        if(water.waterDirtState <= 0 && cleanDirection == nextConnectingPoint){
+                                        if(water.waterDirtState <= 0 && cleanDirection == nextConnectingPoint && (dirtyDirection + connectingPoint != Vector2.zero)){
                                             connection = true;
                                             Debug.Log("we clean");                                        
                                                 
-                                        }else if(water.waterDirtState > 0 && dirtyDirection == nextConnectingPoint){
+                                        }else if(water.waterDirtState > 0 && dirtyDirection == nextConnectingPoint && (cleanDirection + connectingPoint != Vector2.zero)){
                                             connection = true;
                                            Debug.Log("we dirty");
+                                        }
+
+                                    }else if(nextConnectingPoints.Length > 2 && nextPiece.GetComponent<pipe>().returnIsNormalSplitter()){
+                                        Vector2 outputDirection = nextPiece.GetComponent<pipe>().returnNormalOutput();
+                                        if(outputDirection == nextConnectingPoint){
+                                            connection = false;
+                                        }else{
+                                            connection = true;
                                         }
                                     }else{
                                         connection = true;
