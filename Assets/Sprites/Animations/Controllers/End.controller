@@ -141,25 +141,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: StartFlow
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Blue
-    m_Type: 9
+    m_Controller: {fileID: 0}
+  - m_Name: InputState
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: White
-    m_Type: 9
+    m_Controller: {fileID: 0}
+  - m_Name: Balance
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: OutputState
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -184,9 +190,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: White
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4362474978858975069}
   m_Solo: 0
@@ -401,9 +407,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5912639209968302926}
   m_Solo: 0

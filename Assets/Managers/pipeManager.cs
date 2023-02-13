@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class pipeManager : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class pipeManager : MonoBehaviour
     private inventoryManager inventoryControl;
     private animationManager animationControl;
     private bool succCon = false;
+
+    private List<GameObject> correctPath;
 
     void Awake(){
         gridControl = GameObject.FindGameObjectWithTag("gridManager").GetComponent<gridManager>();
@@ -17,11 +21,12 @@ public class pipeManager : MonoBehaviour
 
     public void beginTrans(){
         // Debug.Log("BEGIN TRANS");
+        correctPath = new List<GameObject>();
         succCon = false;
-        animationControl.resetAnimations();
-
+        //animationControl.resetAnimations();
         Vector2 foundStart = gridControl.returnStartPosition();
         waterSpace.waterObject water = waterControl.issueFreshWaterState();
+        List<GameObject> path = new List<GameObject>();
         tranverse(Vector2.right,foundStart,water);
         animationControl.transverseAnimations();
         if(succCon == true){
@@ -38,14 +43,18 @@ public class pipeManager : MonoBehaviour
         if(currentPiece == null){
             return;
         }else if (currentPiece.gameObject.tag == "end"){
+            // Debug.Log("WHAT WE HAVE AT END");
+            // Debug.Log(water.waterDirtState);
+            // Debug.Log(water.waterPhaseState);
             if(water.waterPhaseState == waterSpace.waterStates.WATER)
             {
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                if(water.waterDirtState == 0f){
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                if(Mathf.Abs(water.waterDirtState) == 0f){
                     succCon = true;
+
                 }
             }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
+                //currentPiece.GetComponentInChildren<Animator>().SetTrigger("White");
             }
 
             return;
@@ -54,7 +63,8 @@ public class pipeManager : MonoBehaviour
             // Get stuff off object and call transverse again
             Vector2[] connectingPoints = currentPiece.GetComponent<pipe>().returnPipeDirections();
             water = waterControl.alterWaterPhaseState(currentPiece, water);
-
+            //currentPiece.GetComponent<pipe>().mixWater(water);
+            //water = currentPiece.GetComponent<pipe>().returnPipeWater();
             // Validating pipe connection section of algorithm
             Vector2 connectingPostion = Vector2.zero; // init
             foreach(Vector2 pointSet in connectingPoints){
@@ -67,12 +77,6 @@ public class pipeManager : MonoBehaviour
             foreach(Vector2 element in connectingPoints){
                 if(element != connectingPostion && connectingPostion != Vector2.zero){
                     if(waterControl.canMoveDirection(element,water)){
-
-
-
-
-
-
                         if(connectingPoints.Length > 2 && currentPiece.GetComponent<pipe>().returnIsBalanceSplitter()){
                             Vector2[] combinedData = currentPiece.GetComponent<pipe>().returnPipeBalanceDirections();
                             Vector2 cleanDirection = combinedData[0];
@@ -87,6 +91,7 @@ public class pipeManager : MonoBehaviour
                         }else{
                             currentPiece.GetComponent<pipe>().setConnectedStatus();
                             tranverse(element,currentPos,water); // No split
+                      
                         }
                     }
                 }
@@ -100,6 +105,7 @@ public class pipeManager : MonoBehaviour
     //Spawn pipe section
     public void spawnPipe(string type){
         GameObject currentPipe = inventoryControl.requestPipeSpawn(type);
+        currentPipe.name = currentPipe.name + "-" + GameObject.FindGameObjectsWithTag("pipe").Length.ToString();
         if(currentPipe == null){
             Debug.Log($"Cannot spawn {type} as type has reached its spawn limit!");
         }else{

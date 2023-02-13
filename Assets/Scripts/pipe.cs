@@ -10,11 +10,16 @@ public class pipe : MonoBehaviour
     private gridManager gridControl;
     private challengeManager challengeControl;
 
+    private waterSpace.waterObject pipeWater;
+
     [SerializeField] private string creditsPipe;
     [SerializeField] private Vector2[] allowedDirections;
     [SerializeField] private bool isBalanceSplitter = false;
     [SerializeField]private Vector2 cleanDirection;
     [SerializeField] private Vector2 dirtyDirection;
+
+    [SerializeField] private bool isNormalSplitter = false;
+    [SerializeField] private Vector2 outputSplitter;
     [SerializeField] private string pipeState;
     [SerializeField] private bool connectedStatus = false;
     private int orientation;
@@ -23,6 +28,7 @@ public class pipe : MonoBehaviour
         challengeControl = GameObject.FindGameObjectWithTag("challengeManager").GetComponent<challengeManager>();
         orientation = 0;
         this.gameObject.GetComponentInChildren<Animator>().SetInteger("Orientation", orientation);
+        pipeWater.waterDirtState = 0;
 
     }
 
@@ -46,6 +52,11 @@ public class pipe : MonoBehaviour
                 temp.x = Mathf.RoundToInt(temp.x);
                 temp.y = Mathf.RoundToInt(temp.y);
                 dirtyDirection = temp;
+            }else if(isNormalSplitter){
+                Vector2 temp = rotate(outputSplitter,-1f * Mathf.PI/ 2);
+                temp.x = Mathf.RoundToInt(temp.x);
+                temp.y = Mathf.RoundToInt(temp.y);
+                outputSplitter = temp;
             }
             gameObject.transform.Rotate(0,0,-90);
 
@@ -74,12 +85,33 @@ public class pipe : MonoBehaviour
     public string returnPipeEffect() => pipeState;
 
     public bool returnIsBalanceSplitter() => isBalanceSplitter;
+
+    public bool returnIsNormalSplitter() => isNormalSplitter;
+
+    public Vector2 returnNormalOutput() => outputSplitter;
  
     public Vector2[] returnPipeDirections() => allowedDirections;
 
     public Vector2[] returnPipeBalanceDirections() {
         Vector2[] tempReturn = {cleanDirection,dirtyDirection};
         return tempReturn;
+    }
+
+    public void mixWater(waterSpace.waterObject _input){
+        if(pipeWater.waterDirtState != 0){
+            pipeWater.waterDirtState += _input.waterDirtState;
+            pipeWater.waterDirtState /= 2;
+        }else{
+            pipeWater.waterDirtState += _input.waterDirtState;
+        }
+        if(_input.waterPhaseState == waterStates.STEAM && pipeWater.waterPhaseState == waterStates.WATER || pipeWater.waterPhaseState == waterStates.STEAM && _input.waterPhaseState == waterStates.WATER){
+            pipeWater.waterPhaseState = waterStates.WATER;
+        }
+        
+    }
+
+    public waterSpace.waterObject returnPipeWater(){
+        return pipeWater;
     }
 
     public string returnCreditType()=> creditsPipe;

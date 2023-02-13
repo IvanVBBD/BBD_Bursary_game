@@ -11,14 +11,14 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 1
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
+    m_EventTreshold: 1
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3342187949834563982}
@@ -92,15 +92,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 2
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1636162722518853217}
   m_Solo: 0
@@ -278,14 +278,14 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 3
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
+    m_EventTreshold: 1
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8156483121385722375}
@@ -640,18 +640,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Blue
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: White
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Orientation
     m_Type: 3
     m_DefaultFloat: 0
@@ -659,6 +647,24 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: InputDirection
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: InputState
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Balance
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: OutputState
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -710,15 +716,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7912312281327006707}
   m_Solo: 0
@@ -824,15 +830,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 2
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2397397970497010094}
   m_Solo: 0
@@ -997,15 +1003,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: White
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2019515879171727674}
   m_Solo: 0
@@ -1031,14 +1037,14 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: White
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 2
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
+    m_EventTreshold: 2
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
     m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4661788655574336324}
@@ -1112,15 +1118,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Blue
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 2
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 2
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8329392012185656317}
   m_Solo: 0
@@ -1146,14 +1152,14 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: White
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
+    m_EventTreshold: 2
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
     m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -864495230222134002}
@@ -1224,15 +1230,15 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: StartFlow
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: White
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Orientation
     m_EventTreshold: 2
   - m_ConditionMode: 6
     m_ConditionEvent: InputDirection
     m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: InputState
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7001491820022459373}
   m_Solo: 0

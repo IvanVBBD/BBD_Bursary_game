@@ -48,19 +48,14 @@ public class waterManager : MonoBehaviour
           string condition = currentPipe.GetComponent<pipe>().returnPipeEffect();
             switch(condition){
                 case "NONE":
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                 break;
                 case "FREEZE":
                     if(water.waterPhaseState == waterSpace.waterStates.WATER){
                         water.waterPhaseState = waterSpace.waterStates.ICE;
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
                     }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
                         water.waterPhaseState = waterSpace.waterStates.WATER;                        
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
+                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
                     }else{
                         water.waterPhaseState = waterSpace.waterStates.ICE;
                     }
@@ -68,32 +63,20 @@ public class waterManager : MonoBehaviour
                 case "HEAT":
                     if(water.waterPhaseState == waterSpace.waterStates.WATER){
                         water.waterPhaseState = waterSpace.waterStates.STEAM;
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                       // currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
 
                     }else if(water.waterPhaseState == waterSpace.waterStates.ICE){
                         water.waterPhaseState = waterSpace.waterStates.WATER;
                     }else{
                         water.waterPhaseState = waterSpace.waterStates.STEAM;
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
+                        //currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
 
                     }
                 break;
                 case "FILTER":
-                    // This needs a rethink - should the steam/water be coloured 
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                     water.waterDirtState -= 1;
                 break;
                 case "CONTAMINATOR":
-                    // This needs a rethink - should the steam/water be coloured 
-                    if(water.waterPhaseState == waterSpace.waterStates.WATER){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("Blue");
-                    }else if(water.waterPhaseState == waterSpace.waterStates.STEAM){
-                        currentPipe.GetComponentInChildren<Animator>().SetTrigger("White");
-                    }
                     water.waterDirtState += 1;
                 break;
             }

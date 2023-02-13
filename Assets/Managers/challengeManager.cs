@@ -32,7 +32,7 @@ public class challengeManager : MonoBehaviour
     inventorySpace.inventory currentInventory = new inventorySpace.inventory();
     Vector2 startPos, endPos;
 
-    const string url = "http://127.0.0.1:3002/bursar/requestchallenge";
+    const string url = "http://127.0.0.1:3002/assessment/requestchallenge";
 
     string theme;
     int waterDirtLevel = 0;
